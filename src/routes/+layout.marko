@@ -1,30 +1,74 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A basic Marko app.">
-  <title>${$global.meta.pageTitle || 'Marko'}</title>
-</head>
-<body>
-  <${input.renderBody}/>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A basic Marko app.">
+    <title>${$global.meta.pageTitle || "Zigistry"}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+  </head>
+  <body>
+    <nav class="demo border-bottom-gold">
+      <a href="#" class="brand">
+        <span class="text-gold">
+          Zig
+        </span>
+        <span>istry</span>
+      </a>
+      <input id="bmenub" type="checkbox" class="show">
+      <label for="bmenub" class="burger pseudo button">
+        menu
+      </label>
+      <div class="menu">
+        <a href="#" class="pseudo button icon-picture">
+          Demo
+        </a>
+        <a href="#" class="button icon-puzzle">
+          Plugins
+        </a>
+      </div>
+    </nav>
+    <div class="extra"/>
+
+    <${input.renderBody}/>
+  </body>
 </html>
 
 style {
-  html, body {
-    font-family: system-ui;
+  html,
+  body {
     padding: 0;
     margin: 0;
-    height: 100%;
-    color: #fff;
-    background: #15151e;
+    background-color: #1e1e1e;
   }
-  code {
-    color: #fc0;
+  .demo {
+    color: white;
+    background-color: #1e1e1e;
   }
-  a {
-    color: #09c;
+  .text-gold {
+    color: #faca15 !important;
+  }
+  .brand {
+    font-size: 25px;
+  }
+  .extra {
+    height: 25px;
+  }
+  * {
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      sans-serif,
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      Segoe UI Symbol,
+      "Noto Color Emoji";
+  }
+  .border-bottom-gold {
+    border-bottom: 3px solid #faca15;
+  }
+  .border-0 {
+    border: 0;
   }
 }

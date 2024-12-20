@@ -1,29 +1,154 @@
-<div.container>
-  <header>
-    <img.logo src="./logo.svg" alt="Marko"/>
-  </header>
-  <main>
-    <p>Edit <code>./src/routes/_index/+page.marko</code> and save to reload.</p>
-    <a href="https://markojs.com/docs/getting-started">
-      Learn Marko
-    </a>
-  </main>
-</div>
-<mouse-mask/>
+import $GUI_libs from "../../../database/gui.json";
+import $Game_libs from "../../../database/games.json";
+import $Web_libs from "../../../database/web.json";
+import $packages_database_main from "../../../database/main.json";
+static const $mostUsed = $packages_database_main.slice(0, 10);
+static const $sortedRepos = (
+  $packages_database_main
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    )
+);
+static const $top10LatestRepos = $sortedRepos.slice(0, 10);
 
+div.container
+  main
+    div.hero
+      div.inside_special
+        h1.text-center
+          span.text-gold -- Zig
+          -- istry: A&nbsp;
+          span.text-gold -- Zig
+          -- &nbsp;Registry
+        div.flex.two.center
+          input.grid.search-bar type="input" placeholder="Search packages"
+
+          button.search_button -- Search
+    div
+      h3.demo.ml-4.special_display -- Recently released:
+      div.ml-2
+        for|Card_Details| of=$top10LatestRepos
+          custom_card Card_Details=Card_Details
+      h3.demo.ml-4.special_display -- Most used:
+      div.ml-2
+        for|Card_Details| of=$mostUsed
+          custom_card Card_Details=Card_Details
+      h3.demo.ml-4.special_display -- Famous Game libraries:
+      div.ml-2
+        for|Card_Details| of=$Game_libs
+          custom_card Card_Details=Card_Details
+      h3.demo.ml-4.special_display -- Famous GUI libraries:
+      div.ml-2
+        for|Card_Details| of=$GUI_libs
+          custom_card Card_Details=Card_Details
+      h3.demo.ml-4.special_display -- Famous Web libraries:
+      div.ml-2
+        for|Card_Details| of=$Web_libs
+          custom_card Card_Details=Card_Details
+      h3.demo.ml-4.special_display -- More Zig libraries:
+      div.ml-2
+        AutoScroll.my-scroll [
+          height="100%"
+          style="padding:10px"
+          noScrollX
+          on-scroll-x("onScollX")
+        ]
 style {
-  .container {
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
+  .hero {
+    width: 100vw;
+    color: white;
+    display: flex;
     align-items: center;
-    font-size: clamp(1em, 2vw, 2em); 
-    padding: 1em;
-    box-sizing: border-box;
-    height:100%;
-    width:100%;
+    justify-content: center;
   }
-  img.logo {
-    width:12em;
+  .middler {
+    display: flex;
+    align-items: center;
+  }
+  .white {
+    color: white;
+  }
+  .search-bar {
+    background-color: rgb(50, 56, 67);
+    width: 400px;
+    margin: 0;
+    font-size: 20px;
+    border-radius: 5px 0px 0px 5px;
+    border: 0;
+  }
+  .search_button {
+    width: fit-content !important;
+    margin: 0;
+    border-radius: 0 5px 5px 0px;
+  }
+  .content_fit {
+    display: block;
+    width: 50vw;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .cardCustom {
+    padding: 10px 30px 25px 30px;
+    margin: 25px;
+    box-shadow: 0px 0px 20px black;
+    border-radius: 20px;
+  }
+  .cardCustom:hover {
+    scale: 1.01;
+  }
+  .ml-4 {
+    margin-left: 30px;
+  }
+  .ml-2 {
+    margin-left: 20px;
+  }
+  .special_display {
+    background-color: rgb(51, 53, 54);
+    border: 3px solid gray;
+    padding: 10px 15px 10px 15px;
+    width: fit-content;
+    box-shadow: 0px 0px 20px black;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+  }
+  .gray {
+    background-color: rgb(42, 45, 53);
+    width: fit-content !important;
+    margin-right: 9px;
+    margin-top: 20px;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+  }
+  .miniprofile {
+    border-radius: 50%;
+    margin: 0 5px 0 0 !important;
+  }
+  .bg-nice {
+    padding: 10px 20px 10px 20px !important;
+    border: 2px solid rgb(77, 77, 77);
+    border-radius: 20px;
+    background-color: transparent;
+  }
+  .mt-2 {
+    margin-top: 4px;
+  }
+  .inside_special {
+    box-shadow: 0px 0px 20px black;
+    padding-bottom: 50px;
+    border-radius: 40px;
+    width: 700px;
+    margin-top: 90px;
+    margin-bottom: 40px;
+  }
+}
+
+class {
+  onScollX() {
+    
   }
 }
