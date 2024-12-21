@@ -16,12 +16,25 @@ html lang="en"
       label.burger.pseudo.button for="bmenub"
         menu
       div.menu
+        a.pseudo.button.icon-picture href="/" -- Packages
         a.pseudo.button.icon-picture href="/programs" -- Programs
         a.pseudo.button.icon-picture href="/statistics" -- Statistics
+        a.pseudo.button.icon-picture href="/apps" -- Apps
+        a.pseudo.button.icon-picture href="/api-docs" -- API
+        a.pseudo.button.icon-picture href="/help" -- Help
         a.button.icon-puzzle href="#" -- Plugins
     div.extra
-
     ${input.renderBody}
+    footer.flex.footer_bottom
+      header.flex.four
+        a.gray_link href="https://github.com/rohanvashisht1234" -- &copy; 2024 Rohan Vashisht
+        div
+        div
+        header
+          a.gray_link.mr-4 href="/about" -- About
+          a.gray_link.mr-4 href="/help" -- Help
+          a.gray_link.mr-4 href="https://github.com/zigistry/zigistry" -- GitHub
+
 
 style {
   html,
@@ -58,5 +71,18 @@ style {
   }
   .border-0 {
     border: 0;
+  }
+  .less {
+    padding-bottom: 0px;
+  }
+  .footer_bottom {
+    padding:20px;
+    color:white;
+  }
+  .gray_link {
+    color: gray;
+  }
+  .mr-4 {
+    margin-right:10px;
   }
 }
