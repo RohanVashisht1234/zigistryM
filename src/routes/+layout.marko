@@ -2,7 +2,7 @@
 html lang="en"
   head
     meta charset="UTF-8"
-    link rel="icon" type="image/png" sizes="32x32" href="./favicon.png"
+    link rel="icon" type="image/png" sizes="32x32" href="./zigistry.ico"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     meta name="description" content="A basic Marko app."
     title -- ${$global.meta.pageTitle || "Zigistry"}
@@ -27,14 +27,14 @@ html lang="en"
     ${input.renderBody}
     footer.flex.footer_bottom
       header.flex.four
-        a.gray_link href="https://github.com/rohanvashisht1234" -- &copy; 2024 Rohan Vashisht
+        a.gray_link href="https://github.com/rohanvashisht1234"
+          -- &copy; 2024 Rohan Vashisht
         div
         div
         header
           a.gray_link.mr-4 href="/about" -- About
           a.gray_link.mr-4 href="/help" -- Help
           a.gray_link.mr-4 href="https://github.com/zigistry/zigistry" -- GitHub
-
 
 style {
   html,
@@ -76,13 +76,13 @@ style {
     padding-bottom: 0px;
   }
   .footer_bottom {
-    padding:20px;
-    color:white;
+    padding: 20px;
+    color: white;
   }
   .gray_link {
     color: gray;
   }
   .mr-4 {
-    margin-right:10px;
+    margin-right: 10px;
   }
 }
