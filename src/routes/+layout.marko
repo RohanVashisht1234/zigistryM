@@ -1,39 +1,27 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A basic Marko app.">
-    <title>${$global.meta.pageTitle || "Zigistry"}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
-  </head>
-  <body>
-    <nav class="demo border-bottom-gold">
-      <a href="#" class="brand">
-        <span class="text-gold">
-          Zig
-        </span>
-        <span>istry</span>
-      </a>
-      <input id="bmenub" type="checkbox" class="show">
-      <label for="bmenub" class="burger pseudo button">
+html lang="en"
+  head
+    meta charset="UTF-8"
+    link rel="icon" type="image/png" sizes="32x32" href="./favicon.png"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    meta name="description" content="A basic Marko app."
+    title -- ${$global.meta.pageTitle || "Zigistry"}
+    link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic"
+  body
+    nav.demo.border-bottom-gold
+      a.brand href="/"
+        span.text-gold -- Zig
+        span -- istry
+      input.show#bmenub type="checkbox"
+      label.burger.pseudo.button for="bmenub"
         menu
-      </label>
-      <div class="menu">
-        <a href="#" class="pseudo button icon-picture">
-          Demo
-        </a>
-        <a href="#" class="button icon-puzzle">
-          Plugins
-        </a>
-      </div>
-    </nav>
-    <div class="extra"/>
+      div.menu
+        a.pseudo.button.icon-picture href="/programs" -- Programs
+        a.pseudo.button.icon-picture href="/statistics" -- Statistics
+        a.button.icon-puzzle href="#" -- Plugins
+    div.extra
 
-    <${input.renderBody}/>
-  </body>
-</html>
+    ${input.renderBody}
 
 style {
   html,

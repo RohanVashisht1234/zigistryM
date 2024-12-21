@@ -1,9 +1,9 @@
-import programsMain from "../../../database/programs.json";
-import codebergMain from "../../../database/codebergPrograms.json";
+import programsMain from "../../../../database/programs.json";
+import codebergMain from "../../../../database/codebergPrograms.json";
 
 const databaseMain = [...programsMain, ...codebergMain];
 
-export async function GET({ url }: { url: any }) {
+export async function GET({ url }) {
   const parsedUrl = new URL(url);
   const pageNumberParam = parsedUrl.searchParams.get("pageNumber");
 

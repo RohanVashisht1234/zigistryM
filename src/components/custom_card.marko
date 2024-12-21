@@ -3,15 +3,21 @@ article.cardCustom.demo
         h3 -- ${input.Card_Details.name}
         span.pb-4 -- ${input.Card_Details.description}
         div.flex
-            for|topic| of=input.Card_Details.topics
+            for|topic| of=(input.Card_Details.topics)
                 span.gray -- ${topic}
         div.middler.mt-2
-            div style="width: 50px height:50px; margin-top:10px;"
+            div.miniprofileHolder
                 img.miniprofile [
                     width=25
                     height=25
-                    src=input.Card_Details.avatar_url
+                    src=(input.Card_Details.avatar_url)
                 ]
             -- ${input.Card_Details.full_name}
         div
             button.bg-nice -- View Package
+
+style {
+    .miniprofileHolder {
+        width: 50px; height:50px; margin-top:10px;
+    }
+}

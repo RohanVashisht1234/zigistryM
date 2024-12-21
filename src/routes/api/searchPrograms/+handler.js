@@ -1,11 +1,10 @@
-import db from "../../../database/programs.json";
-import berg from "../../../database/codebergPrograms.json";
-import type { Repo } from "../../typesAndFunctions/customFunctions";
+import db from "../../../../database/programs.json";
+import berg from "../../../../database/codebergPrograms.json";
 
 // Merge both databases
-const mainDatabase: Repo[] = [...db, ...berg];
+const mainDatabase = [...db, ...berg];
 
-export async function GET({ url }: { url: any }){
+export async function GET({ url }){
   const parsedUrl = new URL(url);
   const q = parsedUrl.searchParams.get("q");
   const filter = parsedUrl.searchParams.get("filter");
@@ -32,8 +31,8 @@ export async function GET({ url }: { url: any }){
   const query = q.toLowerCase();
 
   // Separate search results into two categories
-  const fullNameMatches: Repo[] = [];
-  const descriptionMatches: Repo[] = [];
+  const fullNameMatches = [];
+  const descriptionMatches = [];
 
   mainDatabase.forEach((item) => {
     const fullName = item.full_name?.toLowerCase();
@@ -47,7 +46,7 @@ export async function GET({ url }: { url: any }){
   });
 
   // Apply filtering to each category
-  const applyFilter = (items: Repo[]) => {
+  const applyFilter = (items) => {
     if (typeof filter === "string") {
       return items.filter((item) =>
         item.topics?.some(

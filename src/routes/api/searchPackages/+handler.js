@@ -1,16 +1,12 @@
-import mainDatabase from "../../../database/main.json";
-import data from "../../../database/deepSearchData.json";
-import type {
-  deepSearchData,
-  Repo,
-} from "../../typesAndFunctions/customFunctions";
+import mainDatabase from "../../../../database/main.json";
+import data from "../../../../database/deepSearchData.json";
 
-function searchRepositories(data: deepSearchData, inputString: string) {
+function searchRepositories(data, inputString) {
   const results = [];
   const lowerCaseInput = inputString.toLowerCase(); // Case-insensitive search
 
   for (const [repoFullName, readmeData] of Object.entries(data)) {
-    if ((readmeData as string).toLowerCase().includes(lowerCaseInput)) {
+    if ((readmeData).toLowerCase().includes(lowerCaseInput)) {
       results.push(repoFullName.toLowerCase()); // Normalize to lowercase
     }
     if (results.length > 25) break;
@@ -20,7 +16,7 @@ function searchRepositories(data: deepSearchData, inputString: string) {
 }
 
 // Search Engine Algorithm API for "/api/searchPackages"
-export async function GET({ url }: { url: any }) {
+export async function GET({ url }) {
   const parsedUrl = new URL(url);
   const q = parsedUrl.searchParams.get("q");
   const filter = parsedUrl.searchParams.get("filter");
@@ -47,9 +43,9 @@ export async function GET({ url }: { url: any }) {
   const matchingRepos = new Set(searchRepositories(data, query));
 
   // Separate search results into three categories
-  const fullNameMatches: Repo[] = [];
-  const descriptionMatches: Repo[] = [];
-  const deepSearchMatches: Repo[] = [];
+  const fullNameMatches = [];
+  const descriptionMatches = [];
+  const deepSearchMatches = [];
 
   mainDatabase.forEach((item) => {
     const fullName = item.full_name?.toLowerCase();
@@ -65,7 +61,7 @@ export async function GET({ url }: { url: any }) {
   });
 
   // Apply filtering to each category
-  const applyFilter = (items: Repo[]) => {
+  const applyFilter = (items) => {
     if (typeof filter === "string") {
       return items.filter((item) =>
         item.topics?.some(
