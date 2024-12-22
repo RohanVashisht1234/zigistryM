@@ -1,11 +1,14 @@
 {
-  "name": "zigistryM",
+  "name": "zigistrym",
   "description": "The default Marko starter app",
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
+    "@marko/run-adapter-node": "^0.1.11",
+    "marked": "^15.0.4",
     "marko": "^5.37.4",
     "marko-perfect-scrollbar": "^0.0.2",
+    "sanitize-html": "^2.14.0",
     "z2j": "^0.0.48",
     "zilite": "^0.0.4"
   },

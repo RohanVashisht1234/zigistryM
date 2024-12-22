@@ -7,6 +7,10 @@ html lang="en"
     meta name="description" content="A basic Marko app."
     title -- ${$global.meta.pageTitle || "Zigistry"}
     link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic"
+    link [
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/styles/darkMode.css"
+    ]
   body
     nav.demo.border-bottom-gold
       a.brand href="/"
@@ -35,6 +39,19 @@ html lang="en"
           a.gray_link.mr-4 href="/about" -- About
           a.gray_link.mr-4 href="/help" -- Help
           a.gray_link.mr-4 href="https://github.com/zigistry/zigistry" -- GitHub
+
+script type="module" defer
+  --
+  import { highlightElements } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25";
+  import { zig } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/zig.js";
+  import { bash } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/bash.js";
+  import { diff } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/language/diff.js";
+  highlightElements(zig, "language-zig");
+  highlightElements(bash, "language-bash");
+  highlightElements(bash, "language-console");
+  highlightElements(bash, "language-sh");
+  highlightElements(diff, "language-diff");
+  --
 
 style {
   html,

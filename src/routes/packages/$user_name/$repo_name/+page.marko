@@ -1,0 +1,213 @@
+import package_database from "../../../../../database/main.json";
+import sanitizeHtml from "sanitize-html";
+import { marked } from "marked";
+import zon2json from "z2j";
+$ const repoPromise = new Promise(async (resolve, reject) => {
+  async function convert2markdown(x) {
+    let content = marked(
+      x.replaceAll("- [x]", "±§±§±§±").replaceAll("- [ ]", "±§±§±§§±"),
+    );
+    content = sanitizeHtml(content, {
+      allowedAttributes: {
+        a: ["href", "name", "target"],
+        code: ["class"],
+        img: ["src", "srcset", "alt", "title", "width", "height", "loading"],
+      },
+    });
+    content = content.replaceAll(
+      "±§±§±§§±",
+      "<br/><input type='checkbox' class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' disabled></input>",
+    );
+    content = content.replaceAll(
+      "±§±§±§±",
+      "<br/><input type='checkbox' class='w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' checked disabled></input>",
+    );
+    content = content.replaceAll(
+      "[!IMPORTANT]",
+      `<span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">IMPORTANT</span>`,
+    );
+    content = content.replaceAll(
+      "[!NOTE]",
+      `<span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">NOTE</span>`,
+    );
+    content = content.replaceAll(
+      "[!WARNING]",
+      `<span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">WARNING</span>`,
+    );
+    content = content.replaceAll(
+      "[!CAUTION]",
+      `<span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">CAUTION</span>`,
+    );
+    return content;
+  }
+
+  try {
+    const path_name = arguments["5"].url.pathname.split("/").slice(2, 4);
+    const user = path_name[0];
+    const packageName = path_name[1];
+    const repoPath = `${user.toLowerCase()}/${packageName.toLowerCase()}`;
+    const repository = package_database.find(
+      (repo) => repo.full_name.toLowerCase() === repoPath,
+    );
+
+    if (!repository) {
+      return resolve("/404");
+    }
+
+    let zig_version = "unknown";
+
+    const fetchReadmeContent = async (repo) => {
+      const extensions = ["", "txt", "md"];
+      const defaultBranch = repo.default_branch || "master";
+      const readmeCasing = ["readme", "README"];
+
+      for (let ext of extensions) {
+        for (let readmeCase of readmeCasing) {
+          const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext ? `.${ext}` : ""}`;
+          let response = await fetch(url, { method: "HEAD" });
+
+          if (response.ok) {
+            response = await fetch(url);
+            return { content: await response.text(), ext: ext };
+          }
+        }
+      }
+
+      return { content: "404", ext: "" };
+    };
+
+    const [readmeContent, tagsResponse] = await Promise.all([
+      fetchReadmeContent(repository),
+      fetch(repository.tags_url),
+    ]);
+
+    const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
+    const latestTag = tagDetails[0]?.name;
+    const specials = latestTag
+      ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
+      : `git+https://github.com/${repository.full_name}`;
+
+    const dependencies = [];
+    if (repository.has_build_zig_zon === 1) {
+      const url = `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch || "master"}/build.zig.zon`;
+      const res = await fetch(url);
+      const zonData = await res.text();
+      const zonAsJsonData = zon2json(zonData);
+
+      try {
+        const json_parsed = JSON.parse(zonAsJsonData);
+
+        if ("minimum_zig_version" in json_parsed) {
+          zig_version = json_parsed.minimum_zig_version;
+        }
+
+        if ("dependencies" in json_parsed) {
+          for (const [name, dep] of Object.entries(json_parsed.dependencies)) {
+            dependencies.push(
+              dep.url && dep.hash
+                ? { name, source: "remote", location: dep.url }
+                : { name, source: "relative", location: dep.path || "./" },
+            );
+          }
+        }
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    }
+
+    const compressedRepo = {
+      contentIsCorrect: true,
+      name: repository.name,
+      full_name: repository.full_name,
+      readme_content:
+        readmeContent.ext === "md"
+          ? await convert2markdown(readmeContent.content)
+          : `<pre style="padding: 0 !important; border: 0 !important;">${readmeContent.content}</pre>`,
+      created_at: repository.created_at,
+      description: repository.description,
+      tags_url: repository.tags_url,
+      open_issues: repository.open_issues,
+      specials,
+      archived: repository.archived || false,
+      license: repository.license,
+      stargazers_count: repository.stargazers_count,
+      forks_count: repository.forks_count,
+      watchers_count: repository.watchers_count,
+      topics: repository.topics,
+      avatar_url: repository.avatar_url,
+      dependencies,
+      size: repository.size,
+      fork: repository.fork,
+      has_build_zig: repository.has_build_zig,
+      has_build_zig_zon: repository.has_build_zig_zon,
+      updated_at: repository.updated_at,
+    };
+
+    resolve(compressedRepo);
+  } catch (error) {
+    reject(error);
+  }
+});
+
+await(repoPromise) client-reorder
+  @placeholder
+    <!-- Displays while promise is pending -->
+    label
+      -- Loading…
+      progress
+
+  @then|repo|
+    div.readme
+      h1 -- ${repo.name}
+      div.tabs.three
+        input#tab-1 type="radio" name="tabgroupB" checked
+        label.pseudo.button.toggle for="tab-1" -- Readme
+        input#tab-2 type="radio" name="tabgroupB"
+        label.pseudo.button.toggle for="tab-2" -- Lake
+        input#tab-3 type="radio" name="tabgroupB"
+        label.pseudo.button.toggle for="tab-3" -- Balloon
+        div.row
+          div.readmeContent
+            ${repo.readme_content.slice(1, -2)}
+          div
+            img src="img/lake.jpg"
+
+          div
+            img src="img/balloon.jpg"
+
+  @catch|err|
+    h1 -- <!-- Displays if promise rejects -->${err.name} error: ${err.message}
+
+style {
+  .readme {
+    padding: 20px;
+    color: white;
+  }
+  .readmeContent > pre {
+    background-color: #282828;
+    font-family: monospace;
+    font-weight: normal !important;
+    padding: 10px;
+    font-size: 20px;
+    width: fit-content !important;
+  }
+  code {
+    background-color: #282828;
+  }
+  .readmeContent > pre > code {
+    border-radius: 20px;
+    font-family: monospace !important;
+
+    background-color: #282828;
+    color: rgb(255, 163, 92);
+    font-weight: normal !important;
+  }
+  .readmeContent pre > code * {
+    font-weight: normal !important;
+    font-family: monospace !important;
+  }
+  .readmeContent > code * {
+    font-weight: normal !important;
+    font-family: monospace !important;
+  }
+}
