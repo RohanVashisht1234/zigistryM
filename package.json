@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@marko/run-adapter-node": "^0.1.11",
+    "@marko/run-adapter-static": "^0.2.1",
     "marked": "^15.0.4",
     "marko": "^5.37.4",
     "marko-perfect-scrollbar": "^0.0.2",
