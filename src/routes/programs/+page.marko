@@ -1,11 +1,13 @@
 import $programs_database_main from "../../../database/programs.json";
-static const $mostUsed = (
+import type { Repo } from "../../libs/types_important";
+
+static const $mostUsed: Repo[] = (
   $programs_database_main
     .slice()
     .sort((a, b) => b.stargazers_count - a.stargazers_count)
     .slice(0, 10)
 );
-static const $sortedRepos = (
+static const $sortedRepos: Repo[] = (
   $programs_database_main
     .slice()
     .sort(
@@ -13,7 +15,7 @@ static const $sortedRepos = (
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
     )
 );
-static const $top10LatestRepos = $sortedRepos.slice(0, 10);
+static const $top10LatestRepos: Repo[] = $sortedRepos.slice(0, 10);
 
 div.container
   main
@@ -25,7 +27,7 @@ div.container
           span.text-gold -- Zig
           -- &nbsp;Registry
         div.flex.two.center
-          input.grid.search-bar type="input" placeholder="Search programs"
+          input.grid.search-bar type="text" placeholder="Search programs"
 
           button.search_button -- Search
     div

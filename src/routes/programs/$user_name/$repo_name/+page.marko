@@ -1,116 +1,95 @@
 import package_database from "../../../../../database/programs.json";
-import { convert2markdown } from "../../../../libs/important_functions.js";
+import { convert2markdown } from "../../../../libs/types_important";
+import type { Repo } from "../../../../libs/types_important";
+import { Dependency } from "../../../../libs/types_important";
+import { fetchReadmeContent } from "../../../../libs/types_important";
 import zon2json from "z2j";
 $ const repoPromise = new Promise(async (resolve, reject) => {
-  try {
-    const path_name = arguments["5"].url.pathname.split("/").slice(2, 4);
-    const user = path_name[0];
-    const packageName = path_name[1];
-    const repoPath = `${user}/${packageName}`;
-    const repository = package_database.find(
-      (repo) => repo.full_name === repoPath,
-    );
+  const repositories = [...package_database];
+  const { user_name, repo_name } = $global.params;
+  const repoPath = `${user_name}/${repo_name}`;
+  const repository = repositories.find((repo) => repo.full_name === repoPath);
 
-    if (!repository) {
-      return resolve("/404");
-    }
-
-    let zig_version = "unknown";
-
-    const fetchReadmeContent = async (repo) => {
-      const extensions = ["", "txt", "md"];
-      const defaultBranch = repo.default_branch || "master";
-      const readmeCasing = ["readme", "README"];
-
-      for (let ext of extensions) {
-        for (let readmeCase of readmeCasing) {
-          const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext ? `.${ext}` : ""}`;
-          let response = await fetch(url, { method: "HEAD" });
-
-          if (response.ok) {
-            response = await fetch(url);
-            return { content: await response.text(), ext: ext };
-          }
-        }
-      }
-
-      return { content: "404", ext: "" };
-    };
-
-    const [readmeContent, tagsResponse] = await Promise.all([
-      fetchReadmeContent(repository),
-      fetch(repository.tags_url),
-    ]);
-
-    const tagDetails = tagsResponse.ok ? await tagsResponse.json() : [];
-    const latestTag = tagDetails[0]?.name;
-    const specials = latestTag
-      ? `https://github.com/${repository.full_name}/archive/refs/tags/${latestTag}.tar.gz`
-      : `git+https://github.com/${repository.full_name}`;
-
-    const dependencies = [];
-    if (repository.has_build_zig_zon === 1) {
-      const url = `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch || "master"}/build.zig.zon`;
-      const res = await fetch(url);
-      const zonData = await res.text();
-      const zonAsJsonData = zon2json(zonData);
-
-      try {
-        const json_parsed = JSON.parse(zonAsJsonData);
-
-        if ("minimum_zig_version" in json_parsed) {
-          zig_version = json_parsed.minimum_zig_version;
-        }
-
-        if ("dependencies" in json_parsed) {
-          for (const [name, dep] of Object.entries(json_parsed.dependencies)) {
-            dependencies.push(
-              dep.url && dep.hash
-                ? { name, source: "remote", location: dep.url }
-                : { name, source: "relative", location: dep.path || "./" },
-            );
-          }
-        }
-      } catch (_) {
-        // continue;
-      }
-    }
-
-    const compressedRepo = {
-      contentIsCorrect: true,
-      name: repository.name,
-      full_name: repository.full_name,
-      readme_content:
-        readmeContent.ext === "md"
-          ? await convert2markdown(readmeContent.content)
-          : `<pre style="padding: 0 !important; border: 0 !important;">${readmeContent.content}</pre>`,
-      created_at: repository.created_at,
-      description: repository.description,
-      tags_url: repository.tags_url,
-      open_issues: repository.open_issues,
-      specials,
-      archived: repository.archived || false,
-      license: repository.license,
-      stargazers_count: repository.stargazers_count,
-      forks_count: repository.forks_count,
-      watchers_count: repository.watchers_count,
-      topics: repository.topics,
-      avatar_url: repository.avatar_url,
-      dependencies,
-      size: repository.size,
-      fork: repository.fork,
-      has_build_zig: repository.has_build_zig,
-      has_build_zig_zon: repository.has_build_zig_zon,
-      updated_at: repository.updated_at,
-    };
-
-    resolve(compressedRepo);
-  } catch (error) {
-    reject("<h1 style='color:white;'>404!</h1>");
+  if (!repository) {
+    return reject("/404");
   }
+
+  var zig_version = "unknown";
+
+  const readmeContent = await fetchReadmeContent(repository);
+  const dependencies: Dependency[] = [];
+  if (repository.has_build_zig_zon == 1) {
+    const url = `https://raw.githubusercontent.com/${repository.full_name}/master/build.zig.zon`;
+    const res = await fetch(url);
+    var zonData = await res.text();
+    var zonAsJsonData = zon2json(zonData);
+
+    try {
+      const json_parsed = JSON.parse(zonAsJsonData); // No need for await here
+
+      if ("minimum_zig_version" in json_parsed)
+        zig_version = json_parsed.minimum_zig_version;
+
+      // Check if 'dependencies' exists in the parsed JSON first
+      if ("dependencies" in json_parsed) {
+        const deps: {
+          [name: string]: {
+            url: string | undefined;
+            path: string | undefined;
+            hash: string | undefined;
+          };
+        } = json_parsed.dependencies;
+
+        // Iterate over the dependencies and handle them
+        for (const [name, dep] of Object.entries(deps)) {
+          if (dep.url && dep.hash) {
+            dependencies.push({
+              name,
+              source: "remote",
+              location: dep.url,
+            });
+          } else {
+            dependencies.push({
+              name,
+              source: "relative",
+              location: dep.path ? dep.path : "",
+            });
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
+  const compressedRepo: Repo = {
+    contentIsCorrect: true,
+    name: repository.name,
+    full_name: repository.full_name,
+    readme_content:
+      readmeContent.ext === "md"
+        ? await convert2markdown(readmeContent.content)
+        : `<pre style="padding: 0 !important; border: 0 !important;">${readmeContent.content}</pre>`,
+    created_at: repository.created_at,
+    description: repository.description,
+    tags_url: repository.tags_url,
+    open_issues: repository.open_issues,
+    archived: repository.archived ? true : false,
+    license: repository.license,
+    stargazers_count: repository.stargazers_count,
+    forks_count: repository.forks_count,
+    watchers_count: repository.watchers_count,
+    topics: repository.topics,
+    avatar_url: repository.avatar_url,
+    dependencies: dependencies,
+    size: repository.size,
+    fork: repository.fork,
+    has_build_zig: repository.has_build_zig,
+    has_build_zig_zon: repository.has_build_zig_zon,
+    updated_at: repository.updated_at,
+  };
+  resolve(compressedRepo);
 });
 
-await(repoPromise) client-reorder
+await(repoPromise) client-reorder timeout=100000000
   @placeholder
     <!-- Displays while promise is pending -->
     label
@@ -118,9 +97,9 @@ await(repoPromise) client-reorder
       progress
 
   @then|repo|
-    if(repo.contentIsCorrect)
+    if((repo as Repo).contentIsCorrect)
       div.readme
-        h1 -- ${repo.name}
+        h1 -- ${(repo as Repo).name}
         div.tabs.three
           input#tab-1 type="radio" name="tabgroupB" checked
           label.pseudo.button.toggle for="tab-1" -- Readme
@@ -130,12 +109,12 @@ await(repoPromise) client-reorder
           label.pseudo.button.toggle for="tab-3" -- Balloon
           div.row
             div.readmeContent
-              ${repo.readme_content.slice(1, -2)}
+              ${(repo as Repo).readme_content?.slice(1, -2)}
     else
-      h1 -- 404!
+      h1 -- 404! The else part
 
-  @catch
-    h1 -- 404!
+  @catch|e|
+    h1 -- 404! ${e}
 
 style {
   .readme {

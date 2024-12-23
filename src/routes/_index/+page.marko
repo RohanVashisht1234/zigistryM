@@ -2,8 +2,14 @@ import $GUI_libs from "../../../database/gui.json";
 import $Game_libs from "../../../database/games.json";
 import $Web_libs from "../../../database/web.json";
 import $packages_database_main from "../../../database/main.json";
-static const $mostUsed = $packages_database_main.slice(0, 10);
-static const $sortedRepos = (
+import type { Repo } from "../../libs/types_important";
+static const $mostUsed: Repo[] = (
+  $packages_database_main
+    .slice()
+    .sort((a, b) => b.stargazers_count - a.stargazers_count)
+    .slice(0, 10)
+);
+static const $sortedRepos: Repo[] = (
   $packages_database_main
     .slice()
     .sort(
@@ -11,7 +17,7 @@ static const $sortedRepos = (
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
     )
 );
-static const $top10LatestRepos = $sortedRepos.slice(0, 10);
+static const $top10LatestRepos: Repo[] = $sortedRepos.slice(0, 10);
 
 div.container
   main
@@ -23,7 +29,7 @@ div.container
           span.text-gold -- Zig
           -- &nbsp;Registry
         div.flex.two.center
-          input.grid.search-bar type="input" placeholder="Search packages"
+          input.grid.search-bar type="text" placeholder="Search packages"
 
           button.search_button -- Search
     div
@@ -49,7 +55,7 @@ div.container
           custom_card Card_Details=Card_Details
       h3.demo.ml-4.special_display -- More Zig libraries:
       div.ml-2
-        
+
 style {
   .hero {
     width: 100vw;
@@ -139,13 +145,5 @@ style {
     width: 700px;
     margin-top: 90px;
     margin-bottom: 40px;
-  }
-}
-
-class {
-  count = 0;
-  onScrollX() {
-    console.log(this.count)
-    this.count++;
   }
 }

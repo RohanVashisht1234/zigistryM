@@ -1,8 +1,14 @@
-import sanitizeHtml from "sanitize-html";
 import { marked } from "marked";
+import sanitizeHtml from "sanitize-html";
 
-export async function convert2markdown(x) {
-  let content = marked(
+export function numberAsLetters(i: number): string {
+  const numberAsString = i.toString();
+  if (numberAsString.length > 3) return (i / 1000).toString().slice(0, 3) + "K";
+  else return numberAsString;
+}
+
+export async function convert2markdown(x: string): Promise<string> {
+  let content = await marked(
     x.replaceAll("- [x]", "±§±§±§±").replaceAll("- [ ]", "±§±§±§§±"),
   );
   content = sanitizeHtml(content, {
@@ -38,3 +44,64 @@ export async function convert2markdown(x) {
   );
   return content;
 }
+
+
+export interface Dependency {
+  name: string;
+  source: "relative" | "remote";
+  location: string;
+};
+
+export interface deepSearchData {
+  [key: string]: string;
+};
+
+export interface Repo {
+  avatar_url: string;
+  name: string;
+  full_name: string;
+  created_at: string;
+  description: string;
+  default_branch?: string;
+  open_issues: number;
+  stargazers_count: number;
+  forks_count: number;
+  watchers_count: number;
+  contentIsCorrect?: boolean;
+  tags_url: string;
+  license: string;
+  readme_content?: string;
+  specials?: string;
+  topics?: Array<string>;
+  size: number;
+  has_build_zig_zon?: number;
+  has_build_zig?: number;
+  fork?: boolean;
+  updated_at: string;
+  dependencies?: Dependency[];
+  berg?: number;
+  archived?: boolean;
+};
+
+export async function fetchReadmeContent(repo: Repo): Promise<{
+  content: string;
+  ext: string;
+}> {
+  const extensions = ["", "txt", "md"];
+  const defaultBranch = "master";
+  const readmeCasing = ["readme", "README"];
+
+  for (let ext of extensions) {
+    for (let readmeCase of readmeCasing) {
+      const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`;
+      let response = await fetch(url, { method: "HEAD" });
+
+      if (response.ok) {
+        response = await fetch(url);
+        return { content: await response.text(), ext: ext };
+      }
+    }
+  }
+
+  return { content: "404", ext: "" };
+};

@@ -7,7 +7,7 @@
     "@marko/run-adapter-static": "^0.2.1",
     "htmlparser2": "^9.1.0",
     "marked": "^15.0.4",
-    "marko": "^5.37.4",
+    "marko": "^5.37.7",
     "marko-perfect-scrollbar": "^0.0.2",
     "sanitize-html": "^2.14.0",
     "vite": "^6.0.5",
@@ -15,7 +15,14 @@
     "zilite": "^0.0.4"
   },
   "devDependencies": {
-    "@marko/run": "^0.5.9"
+    "@eslint/js": "^9.17.0",
+    "@marko/run": "^0.5.11",
+    "@types/sanitize-html": "^2.13.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1"
   },
   "private": true,
   "scripts": {
