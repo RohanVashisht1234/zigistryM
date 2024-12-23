@@ -5,10 +5,12 @@
   "type": "module",
   "dependencies": {
     "@marko/run-adapter-static": "^0.2.1",
+    "htmlparser2": "^9.1.0",
     "marked": "^15.0.4",
     "marko": "^5.37.4",
     "marko-perfect-scrollbar": "^0.0.2",
     "sanitize-html": "^2.14.0",
+    "vite": "^6.0.5",
     "z2j": "^0.0.48",
     "zilite": "^0.0.4"
   },
