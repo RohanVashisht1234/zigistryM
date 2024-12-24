@@ -1,4 +1,4 @@
-import package_database from "../../../../../database/programs.json";
+import package_database from "../../../../../database/main.json";
 import type { Repo } from "../../../../libs/types_important";
 import type { Dependency } from "../../../../libs/types_important";
 import zon2json from "z2j";
@@ -14,8 +14,6 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
   }
 
   var zig_version = "unknown";
-
-  const readmeContent = await fetchReadmeContent(repository);
   const dependencies: Dependency[] | undefined = [];
   if (repository.has_build_zig_zon == 1) {
     const url = `https://raw.githubusercontent.com/${repository.full_name}/master/build.zig.zon`;
@@ -63,7 +61,7 @@ $ const repoPromise: Promise<Repo> = new Promise(async (resolve, reject) => {
     contentIsCorrect: true,
     name: repository.name,
     full_name: repository.full_name,
-    readme_content: readmeContent,
+    readme_content: await fetchReadmeContent(repository),
     created_at: repository.created_at,
     description: repository.description,
     tags_url: repository.tags_url,
@@ -93,25 +91,32 @@ await(repoPromise) client-reorder timeout=100000000
       progress
 
   @then|repo|
-    if(repo.contentIsCorrect)
-      div.readme
+    div.readme
+      if(repo.contentIsCorrect)
         h1 -- ${repo.name}
-        if(repo.dependencies)
-          for|x| of=repo.dependencies
-            h1 -- ${x.location}
         div.tabs.three
           input#tab-1 type="radio" name="tabgroupB" checked
           label.pseudo.button.toggle for="tab-1" -- Readme
           input#tab-2 type="radio" name="tabgroupB"
-          label.pseudo.button.toggle for="tab-2" -- Lake
+          label.pseudo.button.toggle for="tab-2" -- Dependencies
           input#tab-3 type="radio" name="tabgroupB"
-          label.pseudo.button.toggle for="tab-3" -- Balloon
+          label.pseudo.button.toggle for="tab-3" -- Deeper detials
           div.row
             div.readmeContent
-          ${repo.readme_content?.slice(1, -2)}
+              if(repo.readme_content)
+                ${repo.readme_content}
+            div
+              if(repo.dependencies)
+                h1 -- ${repo.dependencies.length} Dependencies
+                for|dependency| of=repo.dependencies
+                  p.api_section -- <a class="mine" href=dependency.location>${dependency.name}</a>
+              else
+                h1 -- This package doesn&apos;t has any known repositories.
+            div
+              img src="img/balloon.jpg"
 
-    else
-      h1 -- 404! The else part
+      else
+        h1 -- 404! The else part
 
   @catch|e|
     h1 -- 404! ${e}
@@ -132,6 +137,9 @@ style {
   code {
     background-color: #282828;
   }
+  pre {
+    background-color: #282828;
+  }
   .readmeContent > pre > code {
     border-radius: 20px;
     font-family: monospace !important;
@@ -147,5 +155,14 @@ style {
   .readmeContent > code * {
     font-weight: normal !important;
     font-family: monospace !important;
+  }
+  .api_section {
+    color: lightblue;
+    background-color: #3a3941;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .mine {
+    color: lightblue;
   }
 }

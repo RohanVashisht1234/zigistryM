@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@marko/run-adapter-static": "^0.2.1",
+    "date-fns": "^4.1.0",
     "htmlparser2": "^9.1.0",
     "marked": "^15.0.4",
     "marko": "^5.37.7",

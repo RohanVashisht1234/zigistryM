@@ -83,25 +83,36 @@ export interface Repo {
   archived?: boolean;
 };
 
-export async function fetchReadmeContent(repo: Repo): Promise<{
-  content: string;
-  ext: string;
-}> {
-  const extensions = ["", "txt", "md"];
+export async function fetchReadmeContent(repo: Repo): Promise<string> {
   const defaultBranch = "master";
-  const readmeCasing = ["readme", "README"];
+  const combinations = [
+    "readme.md",
+    "README.md",
+    "readme",
+    "README",
+    "readme.txt",
+    "README.txt",
+  ];
 
-  for (let ext of extensions) {
-    for (let readmeCase of readmeCasing) {
-      const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${readmeCase}${ext && `.${ext}`}`;
-      let response = await fetch(url, { method: "HEAD" });
+  try {
+    for (let i = 0; i < combinations.length; i++) {
+      const url = `https://raw.githubusercontent.com/${repo.full_name}/${defaultBranch}/${combinations[i]}`;
 
+      // Attempt to fetch the file directly
+      const response = await fetch(url);
       if (response.ok) {
-        response = await fetch(url);
-        return { content: await response.text(), ext: ext };
+        const ext = combinations[i].includes(".") ? combinations[i].split(".").pop()! : "";
+        if (ext == "md") {
+          return await convert2markdown(await response.text());
+        } else {
+          return await response.text();
+        }
       }
     }
+  } catch (error) {
+    // Catch any unexpected errors and gracefully return 404
   }
 
-  return { content: "404", ext: "" };
-};
+  return "404";
+}
+

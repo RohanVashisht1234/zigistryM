@@ -4,9 +4,11 @@ div class="mt-5 pl-10 sm:pl-5"
     p.my_special -- Here are some of the statistics that Zigistry found:
     p class="text-xl sm:text-4xl" -- Most common licenses used by Zig libraries:
     div.flex.justify-center
-      img.w-3-5 [
+      img [
+        width=250
+        height=250
         alt="Pie chart graph of most common licenses used by Zig libraries."
-        src="../../../public/license_chart.svg"
+        src="../../../public//license_chart.svg"
       ]
     p
       --
@@ -27,7 +29,9 @@ div class="mt-5 pl-10 sm:pl-5"
 
     p -- Most common licenses used by Zig programs:
     div.flex.justify-center
-      img.w-3-5 [
+      img [
+        height=250
+        width=250
         alt="Pie chart graph of most common licenses used by Zig programs."
         src="../../../public/programs.svg"
       ]
@@ -55,8 +59,7 @@ style {
     padding: 20px;
     color: white;
   }
-  .w-3-5 {
-    width: 35vw !important;
-    height: 35vw !important;
-  }
+  /* img {
+    width:35% !important;
+  } */
 }

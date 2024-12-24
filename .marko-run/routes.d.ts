@@ -22,6 +22,7 @@ declare module "@marko/run" {
 			"/apps": Routes["/apps"];
 			"/apps/Zon-2-json": Routes["/apps/Zon-2-json"];
 			"/help": Routes["/help"];
+			"/packages/:user_name/:repo_name": Routes["/packages/$user_name/$repo_name"];
 			"/programs": Routes["/programs"];
 			"/programs/:user_name/:repo_name": Routes["/programs/$user_name/$repo_name"];
 			"/statistics": Routes["/statistics"];
@@ -139,6 +140,17 @@ declare module "../src/routes/help/+page.marko" {
   }
 }
 
+declare module "../src/routes/packages/$user_name/$repo_name/+page.marko" {
+  namespace MarkoRun {
+    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export type Route = Run.Routes["/packages/:user_name/:repo_name"];
+    export type Context = Run.MultiRouteContext<Route> & Marko.Global;
+    export type Handler = Run.HandlerLike<Route>;
+    /** @deprecated use `((context, next) => { ... }) satisfies MarkoRun.Handler` instead */
+    export const route: Run.HandlerTypeFn<Route>;
+  }
+}
+
 declare module "../src/routes/programs/+page.marko" {
   namespace MarkoRun {
     export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
@@ -178,7 +190,7 @@ declare module "../src/routes/+layout.marko" {
   }
   namespace MarkoRun {
     export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
-    export type Route = Run.Routes["/" | "/api-docs" | "/apps" | "/apps/Zon-2-json" | "/help" | "/programs" | "/programs/:user_name/:repo_name" | "/statistics"];
+    export type Route = Run.Routes["/" | "/api-docs" | "/apps" | "/apps/Zon-2-json" | "/help" | "/packages/:user_name/:repo_name" | "/programs" | "/programs/:user_name/:repo_name" | "/statistics"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
     /** @deprecated use `((context, next) => { ... }) satisfies MarkoRun.Handler` instead */
@@ -197,6 +209,7 @@ type Routes = {
 	"/apps": { verb: "get"; };
 	"/apps/Zon-2-json": { verb: "get"; };
 	"/help": { verb: "get"; };
+	"/packages/$user_name/$repo_name": { verb: "get"; };
 	"/programs": { verb: "get"; meta: typeof import("../src/routes/programs/+meta.json"); };
 	"/programs/$user_name/$repo_name": { verb: "get"; };
 	"/statistics": { verb: "get"; };

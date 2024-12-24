@@ -1,5 +1,5 @@
 import type { Repo } from "../libs/types_important";
-
+import { formatDistanceToNow } from "date-fns";
 export interface Input {
     Card_Details: Repo;
 }
@@ -8,9 +8,19 @@ article.cardCustom.demo
     header
         h3 -- ${input.Card_Details.name}
         span.pb-4 -- ${input.Card_Details.description}
+        div.gh_show
+            div.middler.mt-2
+                star_icon
+                -- &nbsp;${input.Card_Details.stargazers_count}&nbsp;
+                watch_count
+                -- &nbsp;${input.Card_Details.watchers_count}&nbsp;
+                fork_count
+                -- &nbsp;${input.Card_Details.forks_count}&nbsp;
+                issue_count
+                -- &nbsp;${input.Card_Details.open_issues}&nbsp;
         div.flex
             for|topic| of=(input.Card_Details.topics)
-                span.gray -- ${topic}
+                span.gray style="margin-top:5px;" -- ${topic}
         div.middler.mt-2
             div.miniprofileHolder
                 img.miniprofile [
@@ -18,14 +28,35 @@ article.cardCustom.demo
                     height=25
                     src=(input.Card_Details.avatar_url)
                 ]
-            -- ${input.Card_Details.full_name}
+            --
+            ${input.Card_Details.full_name}&nbsp; •${" "}${formatDistanceToNow(
+                new Date(input.Card_Details.updated_at),
+                { addSuffix: true },
+            )} •${" "}
+            --
+            h4
+                span.label.bg-gray -- ${input.Card_Details.license}
+            h4
+                if(input.Card_Details.fork)
+                    -- &nbsp; •
+                    span.label.bg-yellow -- Fork
         div
-            button.bg-nice -- View Package
+            button.bg-nice.bottom_button
+                a.white href="/packages/" + input.Card_Details.full_name -- View Package
 
 style {
     .miniprofileHolder {
-        width: 50px;
-        height: 50px;
         margin-top: 10px;
+        margin-right: 5px;
+    }
+    .bg-gray {
+        background-color: gray !important;
+    }
+    .bottom_button {
+        margin-top: 5px;
+        border: 2px solid gray !important;
+    }
+    .gh_show {
+        margin: 5px 0 0 0;
     }
 }
