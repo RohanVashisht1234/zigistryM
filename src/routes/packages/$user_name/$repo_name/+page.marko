@@ -104,16 +104,16 @@ await(repoPromise) client-reorder timeout=100000000
           div.row
             div.readmeContent
               if(repo.readme_content)
-                ${repo.readme_content}
+                -- $!{repo.readme_content}
             div
               if(repo.dependencies)
                 h1 -- ${repo.dependencies.length} Dependencies
                 for|dependency| of=repo.dependencies
-                  p.api_section -- <a class="mine" href=dependency.location>${dependency.name}</a>
+                  a class="mine" href=dependency.location
+                    p.api_section -- ${dependency.name}
               else
                 h1 -- This package doesn&apos;t has any known repositories.
             div
-              img src="img/balloon.jpg"
 
       else
         h1 -- 404! The else part

@@ -13,7 +13,7 @@ export async function convert2markdown(x: string): Promise<string> {
   );
   content = sanitizeHtml(content, {
     allowedAttributes: {
-      a: ["href", "name", "target"],
+      a: ["name", "target"],
       code: ["class"],
       img: ["src", "srcset", "alt", "title", "width", "height", "loading"],
     },
@@ -88,8 +88,6 @@ export async function fetchReadmeContent(repo: Repo): Promise<string> {
   const combinations = [
     "readme.md",
     "README.md",
-    "readme",
-    "README",
     "readme.txt",
     "README.txt",
   ];
