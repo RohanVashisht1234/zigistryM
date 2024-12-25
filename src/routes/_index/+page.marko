@@ -20,6 +20,7 @@ static const $sortedRepos: Repo[] = (
 static const $top10LatestRepos: Repo[] = $sortedRepos.slice(0, 10);
 
 div.container
+  script src="https://unpkg.com/htmx.org@2.0.4"
   main
     div.hero
       div.inside_special
@@ -54,7 +55,7 @@ div.container
         for|Card_Details| of=$Web_libs
           custom_card Card_Details=Card_Details
       h3.demo.ml-4.special_display -- More Zig libraries:
-      div.ml-2
+      infinite_scroll
 
 style {
   .hero {

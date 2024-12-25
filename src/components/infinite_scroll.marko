@@ -1,0 +1,33 @@
+class {
+    onCreate() {
+        const x = { page: 0, repo_list: [] };
+        this.state = ;
+
+        const targetElement = document.querySelector('#your-element') as HTMLElement;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Element is in view
+                    console.log("Element is visible");
+                } else {
+                    // Element is out of view
+                    console.log("Element is not visible");
+                }
+            });
+        });
+
+        observer.observe(targetElement);
+    }
+    load_more() {
+        fetch(`/api/infiniteScrollPackages/?pageNumber=${this.state.page}`)
+            .then((x) => x.json())
+            .then((y) => {
+                this.state.repo_list = [...this.state.repo_list, ...y];
+            });
+        this.state.page++;
+    }
+}
+div
+    for|Card_Details| of=state.repo_list
+        custom_card Card_Details=Card_Details
+    hr id=
