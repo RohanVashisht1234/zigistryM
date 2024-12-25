@@ -34,14 +34,14 @@ div.container
       h3.demo.ml-4.special_display -- Recently released:
       div.ml-2
         for|Card_Details| of=$top10LatestRepos
-          custom_card Card_Details=Card_Details
+          custom_card Card_Details=Card_Details section="programs"
       h3.demo.ml-4.special_display -- Most used:
       div.ml-2
         for|Card_Details| of=$mostUsed
-          custom_card Card_Details=Card_Details
+          custom_card Card_Details=Card_Details section="programs"
       h3.demo.ml-4.special_display -- More Zig programs:
       div.ml-2
-        infinite_scroll
+        infinite_scroll section="programs"
 
 style {
   .hero {

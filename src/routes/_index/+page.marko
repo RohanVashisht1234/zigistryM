@@ -37,25 +37,25 @@ div.container
       h3.demo.ml-4.special_display -- Recently released:
       div.ml-2
         for|Card_Details| of=$top10LatestRepos
-          custom_card Card_Details=Card_Details
+          custom_card Card_Details=Card_Details section="packages"
       h3.demo.ml-4.special_display -- Most used:
       div.ml-2
         for|Card_Details| of=$mostUsed
-          custom_card Card_Details=Card_Details
+          custom_card Card_Details=Card_Details section="packages"
       h3.demo.ml-4.special_display -- Famous Game libraries:
       div.ml-2
         for|Card_Details| of=$Game_libs
-          custom_card Card_Details=Card_Details
+          custom_card Card_Details=Card_Details section="packages"
       h3.demo.ml-4.special_display -- Famous GUI libraries:
       div.ml-2
         for|Card_Details| of=$GUI_libs
-          custom_card Card_Details=Card_Details
+          custom_card Card_Details=Card_Details section="packages"
       h3.demo.ml-4.special_display -- Famous Web libraries:
       div.ml-2
         for|Card_Details| of=$Web_libs
-          custom_card Card_Details=Card_Details
+          custom_card Card_Details=Card_Details section="packages"
       h3.demo.ml-4.special_display -- More Zig libraries:
-      infinite_scroll
+      infinite_scroll section="packages"
 
 style {
   .hero {
