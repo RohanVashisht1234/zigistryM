@@ -1,23 +1,23 @@
-# Thanks for checking out Marko
+# Zigistry: A place where you can find all the libraries that suit your Zig lang needs.
 
-# Installation
+<div align="center">
+<img width=500 src=https://github.com/user-attachments/assets/3b59cfad-049a-48dc-b55a-fa5bc433d686 />
+</div>
 
-```
-npx @marko/create marko-app --template basic
-cd marko-app
-npm install
-npm run dev
-```
+## How to add your zig library on this website?
 
-## Overview
+- Just add a `zig-package` topic to your repository.
 
-This project is powered by [@marko/run](https://github.com/marko-js/run).
+https://github.com/RohanVashisht1234/zigistry/assets/81112205/962b147c-16ce-44d8-a958-57c0f0e1447b
 
-- Run `npm run dev` to start the development server
-- Run `npm run build` to build a production-ready node.js server
-- Run `npm run preview` to run the production server
+## Support:
 
-## Adding Pages
+- ⭐ This github repo, create PRs, discussions, any sort of support/contribution is welcomed 😃.
 
-Pages map to the directory structure. You can add additional pages by creating files/directories under `src/routes` with `+page.marko` files.  Learn more in the [`@marko/run` docs](https://github.com/marko-js/run/#file-based-routing).
+## Contributing:
 
+- Feel free to create a PR, create discussions,
+
+## Legal:
+
+The contents inside the database folder doesn't belong to me, the main.json file has been created/updated by parsing Github's APIs.

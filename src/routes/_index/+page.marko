@@ -3,6 +3,40 @@ import $Game_libs from "../../../database/games.json";
 import $Web_libs from "../../../database/web.json";
 import $packages_database_main from "../../../database/main.json";
 import type { Repo } from "../../libs/types_important";
+class {
+  state!: {
+    searchDdosQuery: string;
+    searchResults: Repo[];
+    showSearchResults: boolean;
+  };
+  onCreate() {
+    this.state = {searchDdosQuery: "", searchResults:[],showSearchResults:false };
+  }
+  onSearch() {
+    const ele = document.getElementById("search_box") as HTMLInputElement;
+    const value = ele.value;
+    if (value === this.state.searchDdosQuery || value === "") return;
+    this.state.searchDdosQuery = value;
+    fetch(`/api/searchPackages?q=${value}`)
+      .then((x) => {
+        return x.json();
+      })
+      .then((y: Repo[]) => {
+        this.state.searchResults = y;
+        this.state.showSearchResults = true;
+      });
+  }
+  onKeyUp(event:KeyboardEvent) {
+    if(event.key === "Enter") {
+      this.onSearch();
+    }
+    const ele = document.getElementById("search_box") as HTMLInputElement;
+    const value = ele.value;
+    if(value === "") {
+      this.state.showSearchResults = false;
+    }
+  }
+}
 static const $mostUsed: Repo[] = (
   $packages_database_main
     .slice()
@@ -20,19 +54,23 @@ static const $sortedRepos: Repo[] = (
 static const $top10LatestRepos: Repo[] = $sortedRepos.slice(0, 10);
 
 div.container
-  script src="https://unpkg.com/htmx.org@2.0.4"
   main
     div.hero
       div.inside_special
-        h1.text-center
+        h2.text-center
           span.text-gold -- Zig
           -- istry: A&nbsp;
           span.text-gold -- Zig
           -- &nbsp;Registry
         div.flex.two.center
-          input.grid.search-bar type="text" placeholder="Search packages"
+          input.grid.search-bar#search_box on-keyup("onKeyUp") [
+            type="text"
+            placeholder="Search packages"
+          ]
 
-          button.search_button -- Search
+          button.search_button on-click("onSearch") -- Search
+  
+if(!state.showSearchResults)
     div
       h3.demo.ml-4.special_display -- Recently released:
       div.ml-2
@@ -56,6 +94,12 @@ div.container
           custom_card Card_Details=Card_Details section="packages"
       h3.demo.ml-4.special_display -- More Zig libraries:
       infinite_scroll section="packages"
+else
+  div
+      h3.demo.ml-4.special_display -- Search Results:
+      div.ml-2
+        for|Card_Details| of=state.searchResults
+          custom_card Card_Details=Card_Details section="packages"
 
 style {
   .hero {
@@ -74,15 +118,20 @@ style {
   }
   .search-bar {
     background-color: rgb(50, 56, 67);
-    width: 400px;
+    width: 300px;
     margin: 0;
     font-size: 20px;
     border-radius: 5px 0px 0px 5px;
     border: 0;
   }
+  .search-bar:focus {
+    border: 2px solid rgb(6 182 212);
+  }
   .search_button {
     width: fit-content !important;
     margin: 0;
+    background-color: #fdf6b2;
+    color:black;
     border-radius: 0 5px 5px 0px;
   }
   .content_fit {
@@ -142,8 +191,9 @@ style {
   .inside_special {
     box-shadow: 0px 0px 20px black;
     padding-bottom: 50px;
+    padding-top: 20px;
     border-radius: 40px;
-    width: 700px;
+    width: 500px;
     margin-top: 90px;
     margin-bottom: 40px;
   }

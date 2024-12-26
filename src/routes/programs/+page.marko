@@ -1,14 +1,47 @@
-import $programs_database_main from "../../../database/programs.json";
+import $packages_database_programs from "../../../database/programs.json";
 import type { Repo } from "../../libs/types_important";
-
+class {
+  state!: {
+    searchDdosQuery: string;
+    searchResults: Repo[];
+    showSearchResults: boolean;
+  };
+  onCreate() {
+    this.state = {searchDdosQuery: "", searchResults:[],showSearchResults:false };
+  }
+  onSearch() {
+    const ele = document.getElementById("search_box") as HTMLInputElement;
+    const value = ele.value;
+    if (value === this.state.searchDdosQuery || value === "") return;
+    this.state.searchDdosQuery = value;
+    fetch(`/api/searchPrograms?q=${value}`)
+      .then((x) => {
+        return x.json();
+      })
+      .then((y: Repo[]) => {
+        this.state.searchResults = y;
+        this.state.showSearchResults = true;
+      });
+  }
+  onKeyUp(event:KeyboardEvent) {
+    if(event.key === "Enter") {
+      this.onSearch();
+    }
+    const ele = document.getElementById("search_box") as HTMLInputElement;
+    const value = ele.value;
+    if(value === "") {
+      this.state.showSearchResults = false;
+    }
+  }
+}
 static const $mostUsed: Repo[] = (
-  $programs_database_main
+  $packages_database_programs
     .slice()
     .sort((a, b) => b.stargazers_count - a.stargazers_count)
     .slice(0, 10)
 );
 static const $sortedRepos: Repo[] = (
-  $programs_database_main
+  $packages_database_programs
     .slice()
     .sort(
       (a, b) =>
@@ -21,15 +54,20 @@ div.container
   main
     div.hero
       div.inside_special
-        h1.text-center
+        h2.text-center
           span.text-gold -- Zig
           -- istry: A&nbsp;
           span.text-gold -- Zig
           -- &nbsp;Registry
         div.flex.two.center
-          input.grid.search-bar type="text" placeholder="Search programs"
+          input.grid.search-bar#search_box on-keyup("onKeyUp") [
+            type="text"
+            placeholder="Search programs"
+          ]
 
-          button.search_button -- Search
+          button.search_button on-click("onSearch") -- Search
+  
+if(!state.showSearchResults)
     div
       h3.demo.ml-4.special_display -- Recently released:
       div.ml-2
@@ -39,9 +77,13 @@ div.container
       div.ml-2
         for|Card_Details| of=$mostUsed
           custom_card Card_Details=Card_Details section="programs"
-      h3.demo.ml-4.special_display -- More Zig programs:
+      infinite_scroll section="programs"
+else
+  div
+      h3.demo.ml-4.special_display -- Search Results:
       div.ml-2
-        infinite_scroll section="programs"
+        for|Card_Details| of=state.searchResults
+          custom_card Card_Details=Card_Details section="programs"
 
 style {
   .hero {
@@ -60,15 +102,20 @@ style {
   }
   .search-bar {
     background-color: rgb(50, 56, 67);
-    width: 400px;
+    width: 300px;
     margin: 0;
     font-size: 20px;
     border-radius: 5px 0px 0px 5px;
     border: 0;
   }
+  .search-bar:focus {
+    border: 2px solid rgb(6 182 212);
+  }
   .search_button {
     width: fit-content !important;
     margin: 0;
+    background-color: #fdf6b2;
+    color:black;
     border-radius: 0 5px 5px 0px;
   }
   .content_fit {
@@ -128,16 +175,10 @@ style {
   .inside_special {
     box-shadow: 0px 0px 20px black;
     padding-bottom: 50px;
+    padding-top: 20px;
     border-radius: 40px;
-    width: 700px;
+    width: 500px;
     margin-top: 90px;
     margin-bottom: 40px;
-  }
-}
-class {
-  count = 0;
-  onScrollX() {
-    console.log(this.count);
-    this.count++;
   }
 }
