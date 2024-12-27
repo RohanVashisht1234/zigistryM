@@ -91,7 +91,7 @@ await(repoPromise) client-reorder timeout=100000000
       progress
 
   @then|repo|
-    div.readme
+    div.readme.theme-bg
       if(repo.contentIsCorrect)
         h1 -- ${repo.name}
         div.tabs.three
@@ -103,13 +103,12 @@ await(repoPromise) client-reorder timeout=100000000
           label.pseudo.button.toggle for="tab-3" -- Deeper detials
           div.row
             div.readmeContent
-              if(repo.readme_content)
-                -- $!{repo.readme_content}
+              if(repo.readme_content) -- $!{repo.readme_content}
             div
               if(repo.dependencies)
                 h1 -- ${repo.dependencies.length} Dependencies
                 for|dependency| of=repo.dependencies
-                  a class="mine" href=dependency.location
+                  a.mine href=dependency.location
                     p.api_section -- ${dependency.name}
               else
                 h1 -- This package doesn&apos;t has any known repositories.
@@ -124,10 +123,9 @@ await(repoPromise) client-reorder timeout=100000000
 style {
   .readme {
     padding: 20px;
-    color: white;
   }
-  .readmeContent  a {
-    color:skyblue;
+  .readmeContent a {
+    color: skyblue;
     text-decoration: underline;
   }
   .readmeContent > pre {

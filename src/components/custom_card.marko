@@ -5,7 +5,7 @@ export interface Input {
     section: string;
 }
 
-article.cardCustom.demo
+article.cardCustom.theme-bg
     header
         h3 -- ${input.Card_Details.name}
         span.pb-4 -- ${input.Card_Details.description}
@@ -21,7 +21,7 @@ article.cardCustom.demo
                 -- &nbsp;${input.Card_Details.open_issues}&nbsp;
         div.flex
             for|topic| of=(input.Card_Details.topics)
-                span.gray style="margin-top:5px;" -- ${topic}
+                span.gray.theme-bg-gray style="margin-top:5px;" -- ${topic}
         div.middler.mt-2
             div.miniprofileHolder
                 img.miniprofile [
@@ -45,7 +45,10 @@ article.cardCustom.demo
             a.white href=(
                 "/" + input.section + "/" + input.Card_Details.full_name
             )
-                button.bg-nice.bottom_button -- View Package
+                if(input.section === "packages")
+                    button.bg-nice.bottom_button.theme-bg -- View Package
+                else
+                    button.bg-nice.bottom_button.theme-bg -- View Programs
 
 style {
     .miniprofileHolder {
@@ -61,5 +64,13 @@ style {
     }
     .gh_show {
         margin: 5px 0 0 0;
+    }
+    .gray {
+        width: fit-content !important;
+        margin-right: 9px;
+        margin-top: 20px;
+        text-align: center;
+        padding: 5px 10px 5px 10px;
+        border-radius: 5px;
     }
 }

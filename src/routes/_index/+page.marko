@@ -56,14 +56,14 @@ static const $top10LatestRepos: Repo[] = $sortedRepos.slice(0, 10);
 div.container
   main
     div.hero
-      div.inside_special
+      div.inside_special.theme-bg
         h2.text-center
-          span.text-gold -- Zig
+          span.theme-gold -- Zig
           -- istry: A&nbsp;
-          span.text-gold -- Zig
+          span.theme-gold -- Zig
           -- &nbsp;Registry
         div.flex.two.center
-          input.grid.search-bar#search_box on-keyup("onKeyUp") [
+          input.theme-bg-gray-for-input-bar.grid.search-bar#search_box on-keyup("onKeyUp") [
             type="text"
             placeholder="Search packages"
           ]
@@ -72,31 +72,31 @@ div.container
   
 if(!state.showSearchResults)
     div
-      h3.demo.ml-4.special_display -- Recently released:
+      h3.ml-4.special_display.theme-bg-gray-for-special -- Recently released:
       div.ml-2
         for|Card_Details| of=$top10LatestRepos
           custom_card Card_Details=Card_Details section="packages"
-      h3.demo.ml-4.special_display -- Most used:
+      h3.ml-4.special_display.theme-bg-gray-for-special -- Most used:
       div.ml-2
         for|Card_Details| of=$mostUsed
           custom_card Card_Details=Card_Details section="packages"
-      h3.demo.ml-4.special_display -- Famous Game libraries:
+      h3.ml-4.special_display.theme-bg-gray-for-special -- Famous Game libraries:
       div.ml-2
         for|Card_Details| of=$Game_libs
           custom_card Card_Details=Card_Details section="packages"
-      h3.demo.ml-4.special_display -- Famous GUI libraries:
+      h3.ml-4.special_display.theme-bg-gray-for-special -- Famous GUI libraries:
       div.ml-2
         for|Card_Details| of=$GUI_libs
           custom_card Card_Details=Card_Details section="packages"
-      h3.demo.ml-4.special_display -- Famous Web libraries:
+      h3.ml-4.special_display.theme-bg-gray-for-special -- Famous Web libraries:
       div.ml-2
         for|Card_Details| of=$Web_libs
           custom_card Card_Details=Card_Details section="packages"
-      h3.demo.ml-4.special_display -- More Zig libraries:
+      h3.ml-4.special_display.theme-bg-gray-for-special -- More Zig libraries:
       infinite_scroll section="packages"
 else
   div
-      h3.demo.ml-4.special_display -- Search Results:
+      h3.ml-4.special_display.theme-bg-gray-for-special -- Search Results:
       div.ml-2
         for|Card_Details| of=state.searchResults
           custom_card Card_Details=Card_Details section="packages"
@@ -117,7 +117,6 @@ style {
     color: white;
   }
   .search-bar {
-    background-color: rgb(50, 56, 67);
     width: 300px;
     margin: 0;
     font-size: 20px;
@@ -157,22 +156,12 @@ style {
     margin-left: 20px;
   }
   .special_display {
-    background-color: rgb(51, 53, 54);
     border: 3px solid gray;
     padding: 10px 15px 10px 15px;
     width: fit-content;
     box-shadow: 0px 0px 20px black;
     margin-top: 20px;
     margin-bottom: 30px;
-    border-radius: 5px;
-  }
-  .gray {
-    background-color: rgb(42, 45, 53);
-    width: fit-content !important;
-    margin-right: 9px;
-    margin-top: 20px;
-    text-align: center;
-    padding: 5px 10px 5px 10px;
     border-radius: 5px;
   }
   .miniprofile {
@@ -183,7 +172,6 @@ style {
     padding: 10px 20px 10px 20px !important;
     border: 2px solid rgb(77, 77, 77);
     border-radius: 20px;
-    background-color: transparent;
   }
   .mt-2 {
     margin-top: 4px;

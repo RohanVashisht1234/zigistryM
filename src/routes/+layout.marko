@@ -1,18 +1,68 @@
 <!doctype html>
-html lang="en"
+html.theme-bg lang="en"
   head
-    meta charset="UTF-8"
-    link rel="icon" type="image/png" sizes="32x32" href="./zigistry.ico"
-    meta name="viewport" content="width=device-width, initial-scale=1.0"
-    meta name="description" content="A basic Marko app."
-    title -- Zigistry
+    meta charset="utf-8"
+    link rel="icon" type="image/x-icon" href="/zigistry.ico"
     link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic"
-    link [
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/zilite@0.0.25/src/styles/darkMode.css"
+    link rel="canonical" href="https://zigistry.dev/"
+    script async defer src="https://buttons.github.io/buttons.js"
+    script defer async src="/main.js"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    <!-- Primary Meta Tags -->
+    title -- Zigistry: A package registry and manager for Zig
+    meta [
+      name="description"
+      content="Zigistry is your go-to registry for Zig programming language libraries and packages. Find, share, and contribute to Zig packages easily. Join the Zig community now!"
     ]
-  body
-    nav.demo.border-bottom-gold
+    meta [
+      name="keywords"
+      content="Zigistry, Zig programming language, Zig libraries, Zig packages, package registry, open-source Zig, Zig community, package manager, contribute to Zig"
+    ]
+    meta name="author" content="Rohan Vashisht"
+    <!-- Open Graph / Facebook -->
+    meta property="og:type" content="website"
+    meta property="og:url" content="https://zigistry.dev/"
+    meta [
+      property="og:title"
+      content="Zigistry: A package registry and manager for Zig"
+    ]
+    meta [
+      property="og:description"
+      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community."
+    ]
+    meta property="og:image" content="https://zigistry.dev/zigistry-social.jpg"
+    <!-- Twitter -->
+    meta property="twitter:card" content="summary_large_image"
+    meta property="twitter:url" content="https://zigistry.dev/"
+    meta [
+      property="twitter:title"
+      content="Zigistry: Discover & Contribute to Zig Libraries & Packages"
+    ]
+    meta [
+      property="twitter:description"
+      content="Explore Zig programming language programs and packages on Zigistry. Find, share, and contribute to the Zig community."
+    ]
+    meta [
+      property="twitter:image"
+      content="https://zigistry.dev/zigistry-social.jpg"
+    ]
+    <!-- JSON-LD Structured Data -->
+    script type="application/ld+json"
+      --
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Zigistry",
+        "url": "https://zigistry.dev/",
+        "description": "Zigistry is your go-to registry for Zig programming language libraries and packages.",
+        "author": {
+          "@type": "Person",
+          "name": "Rohan Vashisht"
+        }
+      }
+      --
+  body.theme-bg
+    nav.theme-bg.border-bottom-gold
       a.brand href="/"
         span.text-gold -- Zig
         span -- istry
@@ -35,6 +85,7 @@ html lang="en"
           aria-label="Star zigistry/zigistry on GitHub"
         ]
           -- Star
+        button#dark-mode-btn -- Toggle Dark Mode
         a.dark_light
     div.extra
     ${input.renderBody}
@@ -49,7 +100,6 @@ html lang="en"
           a.gray_link.mr-4 href="/help" -- Help
           a.gray_link.mr-4 href="https://github.com/zigistry/zigistry" -- GitHub
 
-script async defer src="https://buttons.github.io/buttons.js"
 script type="module" defer
   --
   import { highlightElements } from "https://cdn.jsdelivr.net/npm/zilite@0.0.25";
@@ -61,6 +111,12 @@ script type="module" defer
   highlightElements(bash, "language-console");
   highlightElements(bash, "language-sh");
   highlightElements(diff, "language-diff");
+  const toggleDarkMode = () => {
+    document.documentElement.classList.toggle("dark");
+  };
+  document
+    .getElementById("dark-mode-btn")
+    .addEventListener("click", toggleDarkMode);
   --
 
 style {
@@ -68,17 +124,65 @@ style {
   body {
     padding: 0;
     margin: 0;
-    background-color: #1e1e1e;
   }
-  *{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  :root {
+    --bg-color: white;
+    --fg-color: black;
+    --bg2-color: rgb(187, 187, 187);
+    --fg2-color: black;
+    --bg3-color: white;
+    --fg3-color: black;
+    --bg4-color: rgb(231, 231, 231);
+    --fg4-color: black;
+
+    --fg5-color: #9b7c0f;
   }
-  .demo {
-    color: white;
-    background-color: #1e1e1e;
+  .dark {
+    --bg-color: #1e1e1e;
+    --bg2-color: #2a2d35;
+    --fg-color: white;
+    --fg2-color: white;
+
+    --fg3-color: white;
+    --bg3-color: #333536;
+
+    --bg4-color:rgb(50, 56, 67);
+    --fg4-color:white;
+
+    --fg5-color: #faca15;
   }
-  .text-gold {
-    color: #faca15 !important;
+  .theme-bg {
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+  }
+  .theme-bg-gray {
+    background-color: var(--bg2-color);
+    color: var(--fg2-color);
+  }
+  .theme-bg-gray-for-special {
+    background-color: var(--bg3-color);
+    color: var(--fg3-color);
+  }
+  .theme-bg-gray-for-input-bar {
+    background-color: var(--bg4-color);
+    color: var(--fg4-color);
+  }
+  .theme-gold {
+    color: var(--fg5-color);
+  }
+  * {
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif !important;
   }
   .brand {
     font-size: 25px;
