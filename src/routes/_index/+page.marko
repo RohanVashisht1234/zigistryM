@@ -72,23 +72,23 @@ div.container
 if(!state.showSearchResults)
     div
       h3.ml-4.special_display.theme-bg-gray-for-special -- Recently released:
-      div.ml-2
+      div.mx-2
         for|Card_Details| of=$top10LatestRepos
           custom_card Card_Details=Card_Details section="packages"
       h3.ml-4.special_display.theme-bg-gray-for-special -- Most used:
-      div.ml-2
+      div.mx-2
         for|Card_Details| of=$mostUsed
           custom_card Card_Details=Card_Details section="packages"
       h3.ml-4.special_display.theme-bg-gray-for-special -- Famous Game libraries:
-      div.ml-2
+      div.mx-2
         for|Card_Details| of=$Game_libs
           custom_card Card_Details=Card_Details section="packages"
       h3.ml-4.special_display.theme-bg-gray-for-special -- Famous GUI libraries:
-      div.ml-2
+      div.mx-2
         for|Card_Details| of=$GUI_libs
           custom_card Card_Details=Card_Details section="packages"
       h3.ml-4.special_display.theme-bg-gray-for-special -- Famous Web libraries:
-      div.ml-2
+      div.mx-2
         for|Card_Details| of=$Web_libs
           custom_card Card_Details=Card_Details section="packages"
       h3.ml-4.special_display.theme-bg-gray-for-special -- More Zig libraries:
@@ -96,7 +96,7 @@ if(!state.showSearchResults)
 else
   div
       h3.ml-4.special_display.theme-bg-gray-for-special -- Search Results:
-      div.ml-2
+      div.mx-2
         for|Card_Details| of=state.searchResults
           custom_card Card_Details=Card_Details section="packages"
 
@@ -151,8 +151,9 @@ style {
   .ml-4 {
     margin-left: 30px;
   }
-  .ml-2 {
+  .mx-2 {
     margin-left: 20px;
+    margin-right: 20px;
   }
   .special_display {
     border: 3px solid gray;

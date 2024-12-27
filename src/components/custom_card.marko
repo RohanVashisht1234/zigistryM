@@ -41,6 +41,19 @@ article.cardCustom.theme-bg
                 if(input.Card_Details.fork)
                     -- &nbsp; •
                     span.label.bg-yellow -- Fork
+        div.mb-2.ml-0
+            if(input.Card_Details.has_build_zig === 1)
+                span.label.theme-bg-gray.ml-0
+                    -- build.zig&nbsp;
+                    check_mark
+            if(input.Card_Details.has_build_zig_zon === 1)
+                span.theme-bg-gray.label
+                    -- build.zig.zon&nbsp;
+                    check_mark
+            if(input.Card_Details.fork)
+                span..theme-bg-gray.label
+                    -- Fork&nbsp;
+                    check_mark
         div
             a.white href=(
                 "/" + input.section + "/" + input.Card_Details.full_name
@@ -72,5 +85,11 @@ style {
         text-align: center;
         padding: 5px 10px 5px 10px;
         border-radius: 5px;
+    }
+    .mb-2 {
+        margin-bottom: 7px;
+    }
+    .ml-0 {
+        margin-left:0;
     }
 }

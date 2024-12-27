@@ -69,18 +69,18 @@ div.container
 if(!state.showSearchResults)
     div
       h3.demo.ml-4.special_display.theme-bg-gray-for-special -- Recently released:
-      div.ml-2
+      div.mx-2
         for|Card_Details| of=$top10LatestRepos
           custom_card Card_Details=Card_Details section="programs"
       h3.demo.ml-4.special_display.theme-bg-gray-for-special -- Most used:
-      div.ml-2
+      div.mx-2
         for|Card_Details| of=$mostUsed
           custom_card Card_Details=Card_Details section="programs"
       infinite_scroll section="programs"
 else
   div
       h3.demo.ml-4.special_display.theme-bg-gray-for-special -- Search Results:
-      div.ml-2
+      div.mx-2
         for|Card_Details| of=state.searchResults
           custom_card Card_Details=Card_Details section="programs"
 
@@ -135,8 +135,9 @@ style {
   .ml-4 {
     margin-left: 30px;
   }
-  .ml-2 {
+  .mx-2 {
     margin-left: 20px;
+    margin-right: 20px;
   }
   .special_display {
     border: 3px solid gray;
