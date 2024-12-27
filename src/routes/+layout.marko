@@ -68,13 +68,14 @@ html.theme-bg lang="en"
         span -- istry
       input.show#bmenub type="checkbox"
       label.burger.pseudo.button for="bmenub"
-        menu
-      div.menu
+        -- &equiv;
+      div.menu.theme-bg
         a.pseudo.button.icon-picture href="/" -- Packages
         a.pseudo.button.icon-picture href="/programs" -- Programs
         a.pseudo.button.icon-picture href="/statistics" -- Statistics
         a.pseudo.button.icon-picture href="/apps" -- Apps
         a.pseudo.button.icon-picture href="/api-docs" -- API
+        a.pseudo.button.icon-picture href="/about" -- About
         a.pseudo.button.icon-picture href="/help" -- Help
         a.github-button.mt-6 [
           href="https://github.com/zigistry/zigistry"
@@ -182,11 +183,11 @@ style {
     --fg6-color: rgb(177, 177, 177);
   }
   .theme-bg {
-    background-color: var(--bg-color);
+    background-color: var(--bg-color) !important;
     color: var(--fg-color);
   }
   .theme-bg-gray {
-    background-color: var(--bg2-color);
+    background-color: var(--bg2-color) !important;
     color: var(--fg2-color);
   }
   .theme-bg-gray-for-special {
