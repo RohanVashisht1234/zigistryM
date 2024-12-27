@@ -64,7 +64,7 @@ html.theme-bg lang="en"
   body.theme-bg
     nav.theme-bg.border-bottom-gold
       a.brand href="/"
-        span.text-gold -- Zig
+        span.theme-gold -- Zig
         span -- istry
       input.show#bmenub type="checkbox"
       label.burger.pseudo.button for="bmenub"
@@ -85,17 +85,15 @@ html.theme-bg lang="en"
           aria-label="Star zigistry/zigistry on GitHub"
         ]
           -- Star
-        button#dark-mode-btn -- Toggle Dark Mode
+        button#dark-mode-btn -- &#9728;
         a.dark_light
     div.extra
     ${input.renderBody}
-    footer.flex.footer_bottom
-      header.flex.two
+    footer.footer
+      header
         a.gray_link href="https://github.com/rohanvashisht1234"
           -- &copy; 2024 Rohan Vashisht
-        div
-        div
-        header
+        header.header--footer
           a.gray_link.mr-4 href="/about" -- About
           a.gray_link.mr-4 href="/help" -- Help
           a.gray_link.mr-4 href="https://github.com/zigistry/zigistry" -- GitHub
@@ -111,12 +109,38 @@ script type="module" defer
   highlightElements(bash, "language-console");
   highlightElements(bash, "language-sh");
   highlightElements(diff, "language-diff");
-  const toggleDarkMode = () => {
-    document.documentElement.classList.toggle("dark");
+  // Function to initialize theme based on saved preference or system default
+  const initTheme = () => {
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
+    if (savedTheme) {
+      // Apply the saved theme
+      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+    } else {
+      // Apply system preference
+      document.documentElement.classList.toggle("dark", systemPrefersDark);
+    }
   };
+
+  // Function to toggle theme and save preference
+  const toggleDarkMode = () => {
+    const isDarkMode = document.documentElement.classList.contains("dark");
+    const newTheme = isDarkMode ? "light" : "dark";
+
+    document.documentElement.classList.toggle("dark", !isDarkMode);
+    localStorage.setItem("theme", newTheme); // Save the new preference
+  };
+
+  // Attach toggle function to the button
   document
     .getElementById("dark-mode-btn")
     .addEventListener("click", toggleDarkMode);
+
+  // Initialize theme on page load
+  initTheme();
   --
 
 style {
@@ -146,8 +170,8 @@ style {
     --fg3-color: white;
     --bg3-color: #333536;
 
-    --bg4-color:rgb(50, 56, 67);
-    --fg4-color:white;
+    --bg4-color: rgb(50, 56, 67);
+    --fg4-color: white;
 
     --fg5-color: #faca15;
   }
@@ -190,6 +214,13 @@ style {
   .extra {
     height: 25px;
   }
+  #dark-mode-btn {
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    font-size: 30px;
+    padding: 2px 5px 0 5px;
+    margin: 0;
+  }
   * {
     font-family:
       ui-sans-serif,
@@ -219,7 +250,10 @@ style {
   .mr-4 {
     margin-right: 10px;
   }
-  .mt-6 {
-    margin-top: 50px !important;
+  .footer {
+    margin-left: 20px;
+  }
+  .header--footer {
+    margin-top: 10px;
   }
 }
