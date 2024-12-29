@@ -135,6 +135,7 @@ await(repoPromise) client-reorder timeout=100000000
                     --
                     ${dependency.source !== "remote" ? "./" : ""}${" "}${dependency.name}
                     --
-
-  @catch|e|
-    h1 -- 404! ${e}
+      else
+        h1 -- 404!
+  @catch|_|
+    h1 -- 404!

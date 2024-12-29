@@ -4,8 +4,6 @@ module.exports = {
     "./src/**/*.{marko,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
     "./node_modules/flowbite/**/*.js",
   ],
-  theme: {
-    extend: {},
-  },
+  darkMode: 'class',
   plugins: [],
 };

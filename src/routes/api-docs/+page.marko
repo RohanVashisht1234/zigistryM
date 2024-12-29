@@ -1,95 +1,113 @@
-div class="mt-5 pl-10 sm:pl-5"
-  div.readme.readmeDiv.theme-bg.block
-    h1.less -- Zigistry&apos;s API
-    p.my_special -- You can now start using Zigistry&apos;s api as follows:
-    hr
-    h3 -- For Packages:
-    p.my_special -- Get details for individual packages:
-    a.api_section href="https://zigistry.dev/api/packages/travisstaloch/simdjzon"
+div class="mt-8 px-6 sm:px-4 font-sans text-gray-800 dark:text-gray-200"
+  div.readme.readmeDiv.block
+    <!-- Main Heading -->
+    h1 class="text-4xl font-bold text-center text-indigo-600 dark:text-indigo-400 mb-6"
+      -- Zigistry's API
+    <!-- Introduction -->
+    p.text-lg.text-center.mb-4
+      -- You can now start using Zigistry's API as follows:
+    <!-- Section: For Packages -->
+    h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-300 mt-6 mb-4"
+      -- For Packages:
+    p.text-lg.mb-2 -- Get details for individual packages:
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/packages/travisstaloch/simdjzon"
+    ]
       -- https://zigistry.dev/api/packages/travisstaloch/simdjzon
-    br
-    p.my_special -- Get Search results:
-    a.api_section href="https://zigistry.dev/api/searchPackages?q=Zap"
-      -- https://zigistry.dev/api/searchPackages?q=Zap
-    br
-    p.my_special -- Get Filtered results:
-    a.api_section href="https://zigistry.dev/api/searchPackages?q=Zap&filter=http"
-      -- https://zigistry.dev/api/searchPackages?q=Zap&filter=http
-    br
-    p.my_special -- Get all results from a single topic:
-    a.api_section href="https://zigistry.dev/api/searchPackages?filter=http"
-      -- https://zigistry.dev/api/searchPackages?filter=http
-    br
-    br
-    hr
-    h3.less -- For Programs:
-    p.my_special -- Get details for individual programs
-    a.api_section href="https://zigistry.dev/api/programs/travisstaloch/roc-cli-platform-zig"
-      -- https://zigistry.dev/api/programs/travisstaloch/roc-cli-platform-zig
-    br
-    p.my_special -- Get Search results:
-    a.api_section href="https://zigistry.dev/api/searchPrograms?q=Zap"
-      -- https://zigistry.dev/api/searchPrograms?q=Zap
-    br
-    p.my_special -- Get Filtered results:
-    a.api_section href="https://zigistry.dev/api/searchPrograms?q=Zap&filter=http"
-      -- https://zigistry.dev/api/searchPrograms?q=Zap&filter=http
-    br
-    p.my_special -- Get all results from a single topic:
-    a.api_section href="https://zigistry.dev/api/searchPrograms?filter=http"
-      -- https://zigistry.dev/api/searchPrograms?filter=http
-    br
-    br
-    hr
-    h3 -- For Special Index details (Packages):
-    p.my_special -- Get most used packages (Ascending order):
-    a.api_section href="http://zigistry.dev/api/indexDetailsPackages?section=mostUsed&range=0..100"
-      --
-      http://zigistry.dev/api/indexDetailsPackages?section=mostUsed&range=0..100
-      --
-    br
-    p.my_special -- Get latest used packages (Ascending order):
-    a.api_section href="http://zigistry.dev/api/indexDetailsPackages?section=latestRepos&range=0..100"
-      --
-      http://zigistry.dev/api/indexDetailsPackages?section=latestRepos&range=0..100
-      --
-    br
-    br
-    hr
-    h3 -- For Special Index details (Programs):
-    p.my_special -- Get most used programs (Ascending order):
-    a.api_section href="http://zigistry.dev/api/indexDetailsPrograms?section=mostUsed&range=0..100"
-      --
-      http://zigistry.dev/api/indexDetailsPrograms?section=mostUsed&range=0..100
-      --
-    br
-    p.my_special -- Get latest used programs (Ascending order):
-    a.api_section href="http://zigistry.dev/api/indexDetailsPrograms?section=latestRepos&range=0..100"
-      --
-      http://zigistry.dev/api/indexDetailsPrograms?section=latestRepos&range=0..100
-      --
-    br
-    br
-    --
-    ${" "}Obviously, a lot of things need to be added to the api and I am currently workingon it. But for now, this can be used for fetching basic stuff.
-    --
 
-style {
-  .readme {
-    padding: 20px;
-  }
-  .w-3-5 {
-    width: 35vw !important;
-    height: 35vw !important;
-  }
-  .api_section {
-    color: lightblue;
-    background-color: #3a3941;
-    padding: 10px;
-    border-radius: 10px;
-  }
-  .my_special {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-}
+    p.text-lg.mt-4.mb-2 -- Get search results:
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/searchPackages?q=Zap"
+    ]
+      -- https://zigistry.dev/api/searchPackages?q=Zap
+
+    p.text-lg.mt-4.mb-2 -- Get filtered results:
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/searchPackages?q=Zap&filter=http"
+    ]
+      -- https://zigistry.dev/api/searchPackages?q=Zap&filter=http
+
+    p.text-lg.mt-4.mb-2 -- Get all results from a single topic:
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/searchPackages?filter=http"
+    ]
+      -- https://zigistry.dev/api/searchPackages?filter=http
+    <!-- Section: For Programs -->
+    h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-300 mt-8 mb-4"
+      -- For Programs:
+    p.text-lg.mb-2 -- Get details for individual programs:
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/programs/travisstaloch/roc-cli-platform-zig"
+    ]
+      -- https://zigistry.dev/api/programs/travisstaloch/roc-cli-platform-zig
+
+    p.text-lg.mt-4.mb-2 -- Get search results:
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/searchPrograms?q=Zap"
+    ]
+      -- https://zigistry.dev/api/searchPrograms?q=Zap
+
+    p.text-lg.mt-4.mb-2 -- Get filtered results:
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/searchPrograms?q=Zap&filter=http"
+    ]
+      -- https://zigistry.dev/api/searchPrograms?q=Zap&filter=http
+
+    p.text-lg.mt-4.mb-2 -- Get all results from a single topic:
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/searchPrograms?filter=http"
+    ]
+      -- https://zigistry.dev/api/searchPrograms?filter=http
+    <!-- Section: For Special Index Details -->
+    h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-300 mt-8 mb-4"
+      -- For Special Index Details (Packages):
+    p.text-lg.mb-2 -- Get most used packages (ascending order):
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/indexDetailsPackages?section=mostUsed&range=0..100"
+    ]
+      --
+      https://zigistry.dev/api/indexDetailsPackages?section=mostUsed&range=0..100
+      --
+
+    p.text-lg.mt-4.mb-2 -- Get latest used packages (ascending order):
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/indexDetailsPackages?section=latestRepos&range=0..100"
+    ]
+      --
+      https://zigistry.dev/api/indexDetailsPackages?section=latestRepos&range=0..100
+      --
+
+    h3 class="text-2xl font-semibold text-gray-700 dark:text-gray-300 mt-8 mb-4"
+      -- For Special Index Details (Programs):
+    p.text-lg.mb-2 -- Get most used programs (ascending order):
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/indexDetailsPrograms?section=mostUsed&range=0..100"
+    ]
+      --
+      https://zigistry.dev/api/indexDetailsPrograms?section=mostUsed&range=0..100
+      --
+
+    p.text-lg.mt-4.mb-2 -- Get latest used programs (ascending order):
+    a [
+      class="api_section text-blue-600 dark:text-blue-400 underline break-all"
+      href="https://zigistry.dev/api/indexDetailsPrograms?section=latestRepos&range=0..100"
+    ]
+      --
+      https://zigistry.dev/api/indexDetailsPrograms?section=latestRepos&range=0..100
+      --
+    <!-- Footer Note -->
+    p class="text-sm text-gray-500 dark:text-gray-400 mt-6 italic"
+      --
+      Obviously, a lot of things need to be added to the API, and I am currently working on it. But for now, this can be used for fetching basic stuff.
+      --
