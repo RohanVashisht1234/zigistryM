@@ -45,16 +45,15 @@ export async function convert2markdown(x: string): Promise<string> {
   return content;
 }
 
-
 export interface Dependency {
   name: string;
   source: "relative" | "remote";
   location: string;
-};
+}
 
 export interface deepSearchData {
   [key: string]: string;
-};
+}
 
 export interface Repo {
   avatar_url: string;
@@ -81,16 +80,11 @@ export interface Repo {
   dependencies?: Dependency[];
   berg?: number;
   archived?: boolean;
-};
+}
 
 export async function fetchReadmeContent(repo: Repo): Promise<string> {
   const defaultBranch = "master";
-  const combinations = [
-    "readme.md",
-    "README.md",
-    "readme.txt",
-    "README.txt",
-  ];
+  const combinations = ["readme.md", "README.md", "readme.txt", "README.txt"];
 
   try {
     for (let i = 0; i < combinations.length; i++) {
@@ -99,7 +93,9 @@ export async function fetchReadmeContent(repo: Repo): Promise<string> {
       // Attempt to fetch the file directly
       const response = await fetch(url);
       if (response.ok) {
-        const ext = combinations[i].includes(".") ? combinations[i].split(".").pop()! : "";
+        const ext = combinations[i].includes(".")
+          ? combinations[i].split(".").pop()!
+          : "";
         if (ext == "md") {
           return await convert2markdown(await response.text());
         } else {
@@ -113,4 +109,3 @@ export async function fetchReadmeContent(repo: Repo): Promise<string> {
 
   return "404";
 }
-

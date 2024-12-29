@@ -3,37 +3,57 @@
   Do NOT manually edit this file or your changes will be lost.
 */
 
-import { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform } from "@marko/run/namespace";
+import {
+  NotHandled,
+  NotMatched,
+  GetPaths,
+  PostPaths,
+  GetablePath,
+  GetableHref,
+  PostablePath,
+  PostableHref,
+  Platform,
+} from "@marko/run/namespace";
 import type * as Run from "@marko/run";
 
-
 declare module "@marko/run" {
-	interface Platform extends {} {}
+  interface Platform extends {} {}
 
-	interface AppData extends Run.DefineApp<{
-		routes: {
-			"/": Routes["/_index"];
-			"/API-docs": Routes["/API-docs"];
-			"/about": Routes["/about"];
-			"/api/indexDetailsPrograms": Routes["/api/indexDetailsPrograms"];
-			"/api/infiniteScrollPackages": Routes["/api/infiniteScrollPackages"];
-			"/api/infiniteScrollPrograms": Routes["/api/infiniteScrollPrograms"];
-			"/api/searchPackages": Routes["/api/searchPackages"];
-			"/api/searchPrograms": Routes["/api/searchPrograms"];
-			"/apps": Routes["/apps"];
-			"/apps/Zon-2-json": Routes["/apps/Zon-2-json"];
-			"/help": Routes["/help"];
-			"/packages/:user_name/:repo_name": Routes["/packages/$user_name/$repo_name"];
-			"/programs": Routes["/programs"];
-			"/programs/:user_name/:repo_name": Routes["/programs/$user_name/$repo_name"];
-			"/statistics": Routes["/statistics"];
-		}
-	}> {}
+  interface AppData
+    extends Run.DefineApp<{
+      routes: {
+        "/": Routes["/_index"];
+        "/API-docs": Routes["/API-docs"];
+        "/about": Routes["/about"];
+        "/api/indexDetailsPrograms": Routes["/api/indexDetailsPrograms"];
+        "/api/infiniteScrollPackages": Routes["/api/infiniteScrollPackages"];
+        "/api/infiniteScrollPrograms": Routes["/api/infiniteScrollPrograms"];
+        "/api/searchPackages": Routes["/api/searchPackages"];
+        "/api/searchPrograms": Routes["/api/searchPrograms"];
+        "/apps": Routes["/apps"];
+        "/apps/Zon-2-json": Routes["/apps/Zon-2-json"];
+        "/help": Routes["/help"];
+        "/packages/:user_name/:repo_name": Routes["/packages/$user_name/$repo_name"];
+        "/programs": Routes["/programs"];
+        "/programs/:user_name/:repo_name": Routes["/programs/$user_name/$repo_name"];
+        "/statistics": Routes["/statistics"];
+      };
+    }> {}
 }
 
 declare module "../src/routes/api/indexDetailsPrograms/+handler.js" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/api/indexDetailsPrograms"];
     export type Context = Run.MultiRouteContext<Route>;
     export type Handler = Run.HandlerLike<Route>;
@@ -44,7 +64,17 @@ declare module "../src/routes/api/indexDetailsPrograms/+handler.js" {
 
 declare module "../src/routes/api/infiniteScrollPackages/+handler.js" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/api/infiniteScrollPackages"];
     export type Context = Run.MultiRouteContext<Route>;
     export type Handler = Run.HandlerLike<Route>;
@@ -55,7 +85,17 @@ declare module "../src/routes/api/infiniteScrollPackages/+handler.js" {
 
 declare module "../src/routes/api/infiniteScrollPrograms/+handler.js" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/api/infiniteScrollPrograms"];
     export type Context = Run.MultiRouteContext<Route>;
     export type Handler = Run.HandlerLike<Route>;
@@ -66,7 +106,17 @@ declare module "../src/routes/api/infiniteScrollPrograms/+handler.js" {
 
 declare module "../src/routes/api/searchPackages/+handler.js" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/api/searchPackages"];
     export type Context = Run.MultiRouteContext<Route>;
     export type Handler = Run.HandlerLike<Route>;
@@ -77,7 +127,17 @@ declare module "../src/routes/api/searchPackages/+handler.js" {
 
 declare module "../src/routes/api/searchPrograms/+handler.js" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/api/searchPrograms"];
     export type Context = Run.MultiRouteContext<Route>;
     export type Handler = Run.HandlerLike<Route>;
@@ -88,7 +148,17 @@ declare module "../src/routes/api/searchPrograms/+handler.js" {
 
 declare module "../src/routes/_index/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -99,7 +169,17 @@ declare module "../src/routes/_index/+page.marko" {
 
 declare module "../src/routes/API-docs/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/API-docs"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -110,7 +190,17 @@ declare module "../src/routes/API-docs/+page.marko" {
 
 declare module "../src/routes/about/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/about"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -121,7 +211,17 @@ declare module "../src/routes/about/+page.marko" {
 
 declare module "../src/routes/apps/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/apps"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -132,7 +232,17 @@ declare module "../src/routes/apps/+page.marko" {
 
 declare module "../src/routes/apps/Zon-2-json/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/apps/Zon-2-json"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -143,7 +253,17 @@ declare module "../src/routes/apps/Zon-2-json/+page.marko" {
 
 declare module "../src/routes/help/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/help"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -154,7 +274,17 @@ declare module "../src/routes/help/+page.marko" {
 
 declare module "../src/routes/packages/$user_name/$repo_name/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/packages/:user_name/:repo_name"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -165,7 +295,17 @@ declare module "../src/routes/packages/$user_name/$repo_name/+page.marko" {
 
 declare module "../src/routes/programs/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/programs"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -176,7 +316,17 @@ declare module "../src/routes/programs/+page.marko" {
 
 declare module "../src/routes/programs/$user_name/$repo_name/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/programs/:user_name/:repo_name"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -187,7 +337,17 @@ declare module "../src/routes/programs/$user_name/$repo_name/+page.marko" {
 
 declare module "../src/routes/statistics/+page.marko" {
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
     export type Route = Run.Routes["/statistics"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
@@ -201,8 +361,28 @@ declare module "../src/routes/+layout.marko" {
     renderBody: Marko.Body;
   }
   namespace MarkoRun {
-    export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
-    export type Route = Run.Routes["/" | "/API-docs" | "/about" | "/apps" | "/apps/Zon-2-json" | "/help" | "/packages/:user_name/:repo_name" | "/programs" | "/programs/:user_name/:repo_name" | "/statistics"];
+    export {
+      NotHandled,
+      NotMatched,
+      GetPaths,
+      PostPaths,
+      GetablePath,
+      GetableHref,
+      PostablePath,
+      PostableHref,
+      Platform,
+    };
+    export type Route = Run.Routes[
+      | "/"
+      | "/API-docs"
+      | "/about"
+      | "/apps"
+      | "/apps/Zon-2-json"
+      | "/help"
+      | "/packages/:user_name/:repo_name"
+      | "/programs"
+      | "/programs/:user_name/:repo_name"
+      | "/statistics"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
     /** @deprecated use `((context, next) => { ... }) satisfies MarkoRun.Handler` instead */
@@ -211,19 +391,22 @@ declare module "../src/routes/+layout.marko" {
 }
 
 type Routes = {
-	"/_index": { verb: "get"; meta: typeof import("../src/routes/_index/+meta.json"); };
-	"/API-docs": { verb: "get"; };
-	"/about": { verb: "get"; };
-	"/api/indexDetailsPrograms": { verb: "get"; };
-	"/api/infiniteScrollPackages": { verb: "get"; };
-	"/api/infiniteScrollPrograms": { verb: "get"; };
-	"/api/searchPackages": { verb: "get"; };
-	"/api/searchPrograms": { verb: "get"; };
-	"/apps": { verb: "get"; };
-	"/apps/Zon-2-json": { verb: "get"; };
-	"/help": { verb: "get"; };
-	"/packages/$user_name/$repo_name": { verb: "get"; };
-	"/programs": { verb: "get"; };
-	"/programs/$user_name/$repo_name": { verb: "get"; };
-	"/statistics": { verb: "get"; };
-}
+  "/_index": {
+    verb: "get";
+    meta: typeof import("../src/routes/_index/+meta.json");
+  };
+  "/API-docs": { verb: "get" };
+  "/about": { verb: "get" };
+  "/api/indexDetailsPrograms": { verb: "get" };
+  "/api/infiniteScrollPackages": { verb: "get" };
+  "/api/infiniteScrollPrograms": { verb: "get" };
+  "/api/searchPackages": { verb: "get" };
+  "/api/searchPrograms": { verb: "get" };
+  "/apps": { verb: "get" };
+  "/apps/Zon-2-json": { verb: "get" };
+  "/help": { verb: "get" };
+  "/packages/$user_name/$repo_name": { verb: "get" };
+  "/programs": { verb: "get" };
+  "/programs/$user_name/$repo_name": { verb: "get" };
+  "/statistics": { verb: "get" };
+};

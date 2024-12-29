@@ -6,22 +6,22 @@ import programs_data from "./database/programs.json";
 import type { Repo } from "./src/libs/types_important";
 
 function arrayOfPaths() {
-    let my_array: string[] = [];
-    packages_data.forEach((element: Repo) => {
-        my_array.push("/packages/" + element.full_name);
-    });
-    programs_data.forEach((element: Repo) => {
-        my_array.push("/programs/" + element.full_name);
-    });
-    return my_array;
+  let my_array: string[] = [];
+  packages_data.forEach((element: Repo) => {
+    my_array.push("/packages/" + element.full_name);
+  });
+  programs_data.forEach((element: Repo) => {
+    my_array.push("/programs/" + element.full_name);
+  });
+  return my_array;
 }
 
 export default defineConfig({
-    plugins: [
-        marko({
-            adapter: staticAdapter({
-                urls: () => arrayOfPaths()
-            }),
-        }),
-    ]
+  plugins: [
+    marko({
+      adapter: staticAdapter({
+        urls: () => arrayOfPaths(),
+      }),
+    }),
+  ],
 });

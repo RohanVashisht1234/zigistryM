@@ -64,9 +64,9 @@ div
       h1.my-5.text-center.text-2xl.font-semibold -- Search Ziglang Packages
       div.flex
         div.w-fit data-testid="flowbite-tooltip-target"
-          div.flex.ml-4
-            div.relative.max-w-36.w-max.min-w-10
-              select#dropDownID class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 border-yellow-500 bg-yellow-50 text-yellow-900 placeholder-yellow-700 focus:border-yellow-500 focus:ring-yellow-500 dark:border-yellow-400 dark:bg-yellow-100 dark:focus:border-yellow-500 dark:focus:ring-yellow-500 p-2.5 text-sm rounded-lg"
+          div.ml-4.flex
+            div.relative.w-max.min-w-10.max-w-36
+              select#dropDownID class="block w-full rounded-lg border border-yellow-500 bg-yellow-50 p-2.5 text-sm text-yellow-900 placeholder-yellow-700 focus:border-yellow-500 focus:ring-yellow-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-yellow-400 dark:bg-yellow-100 dark:focus:border-yellow-500 dark:focus:ring-yellow-500"
                 option -- No Filter
                 option -- api
                 option -- http
@@ -78,7 +78,7 @@ div
         div [
           data-testid="flowbite-tooltip"
           tabindex="-1"
-          class="absolute z-10 inline-block rounded-lg px-3 py-2 text-sm font-medium shadow-sm transition-opacity duration-300 invisible opacity-0 bg-gray-900 text-white dark:bg-gray-700"
+          class="invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
           style="position: absolute; top: 126px; left: 599.35px;"
           id=":r0Rp:"
           role="tooltip"
@@ -90,10 +90,10 @@ div
             style="bottom: -4px; left: 115.5px;"
           ]
             -- &nbsp;
-        div.flex.mx-4.mb-5.w-60.max-w-72
+        div.mx-4.mb-5.flex.w-60.max-w-72
           div.relative.w-full
             input#search_box [
-              class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500"
               type="text"
               placeholder="Search 500+ Zig libraries"
               autofocus

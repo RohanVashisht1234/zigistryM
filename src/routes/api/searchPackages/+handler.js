@@ -6,7 +6,7 @@ function searchRepositories(data, inputString) {
   const lowerCaseInput = inputString.toLowerCase(); // Case-insensitive search
 
   for (const [repoFullName, readmeData] of Object.entries(data)) {
-    if ((readmeData).toLowerCase().includes(lowerCaseInput)) {
+    if (readmeData.toLowerCase().includes(lowerCaseInput)) {
       results.push(repoFullName.toLowerCase()); // Normalize to lowercase
     }
     if (results.length > 25) break;

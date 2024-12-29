@@ -4,7 +4,7 @@ import berg from "../../../../database/codebergPrograms.json";
 // Merge both databases
 const mainDatabase = [...db, ...berg];
 
-export async function GET({ url }){
+export async function GET({ url }) {
   const parsedUrl = new URL(url);
   const q = parsedUrl.searchParams.get("q");
   const filter = parsedUrl.searchParams.get("filter");
