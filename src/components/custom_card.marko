@@ -5,91 +5,95 @@ export interface Input {
     section: string;
 }
 
-article.cardCustom.theme-bg
-    header
-        h3 -- ${input.Card_Details.name}
-        span.pb-4 -- ${input.Card_Details.description}
-        div.gh_show
-            div.middler.mt-2
-                star_icon
-                -- &nbsp;${input.Card_Details.stargazers_count}&nbsp;
-                watch_count
-                -- &nbsp;${input.Card_Details.watchers_count}&nbsp;
-                fork_count
-                -- &nbsp;${input.Card_Details.forks_count}&nbsp;
-                issue_count
-                -- &nbsp;${input.Card_Details.open_issues}&nbsp;
-        div.flex
-            for|topic| of=(input.Card_Details.topics)
-                span.gray.theme-bg-gray style="margin-top:5px;" -- ${topic}
-        div.middler.mt-2
-            div.miniprofileHolder
-                img.miniprofile [
-                    width=25
-                    height=25
-                    src=(input.Card_Details.avatar_url)
+div [
+    data-testid="flowbite-card"
+    class="flex rounded-lg border-gray-200 dark:border-gray-700 flex-col z-0 my-2 w-72 transform-cpu border-0 bg-white shadow-lg shadow-black transition-transform hover:z-10 hover:scale-110 dark:bg-[rgb(30,30,30)]"
+]
+    div.flex.h-full.flex-col.justify-center.gap-4.p-6
+        img.w-10.rounded-full [
+            width="50"
+            height="50"
+            src=(input.Card_Details.avatar_url)
+            alt="misshod"
+        ]
+        a [
+            href="/packages/ringtailsoftware/misshod"
+            class="truncate text-2xl font-bold text-gray-900 dark:text-white"
+        ]
+            -- ${input.Card_Details.name}
+        p.truncate.text-gray-400 -- ${input.Card_Details.full_name}
+        div.flex.space-x-3
+            span [
+                class="flex h-fit items-center gap-1 font-semibold p-1 text-xs rounded px-2 py-0.5 mt-1 w-fit border border-slate-200 bg-white dark:border-none dark:bg-slate-600"
+                data-testid="flowbite-badge"
+            ]
+                span -- ${input.Card_Details.license}
+        p class="font-normal text-gray-700 dark:text-gray-400"
+            -- ${input.Card_Details.description}
+        div.flex.items-center
+            star_icon
+            -- ${input.Card_Details.stargazers_count}
+            watch_count
+            -- ${" "}${input.Card_Details.watchers_count}
+            fork_count
+            -- ${" "}${input.Card_Details.forks_count}
+            issue_count
+            -- ${" "}${input.Card_Details.open_issues}
+            important_count
+            div.w-fit data-testid="flowbite-tooltip-target"
+                --
+                ${input.Card_Details.topics
+                    ? input.Card_Details.topics.length
+                    : 0}
+                --
+            div [
+                data-testid="flowbite-tooltip"
+                tabindex="-1"
+                class="absolute z-10 inline-block rounded-lg px-3 py-2 text-sm font-medium shadow-sm transition-opacity duration-300 invisible opacity-0 bg-gray-900 text-white dark:bg-gray-700 ml-2 mr-1"
+                style="position: absolute; top: 211.993px; left: 134.169px;"
+                id=":r0Rkq2a:"
+                role="tooltip"
+            ]
+                div.relative.z-20 -- ${input.Card_Details.topics}
+                div [
+                    class="absolute z-10 h-2 w-2 rotate-45 bg-gray-900 dark:bg-gray-700"
+                    data-testid="flowbite-tooltip-arrow"
+                    style="bottom: -4px; left: 67px;"
                 ]
-            --
-            ${input.Card_Details.full_name}&nbsp; •${" "}${formatDistanceToNow(
-                new Date(input.Card_Details.updated_at),
-                { addSuffix: true },
-            )} •${" "}
-            --
-            h4
-                span.label.bg-gray -- ${input.Card_Details.license}
-            h4
-                if(input.Card_Details.fork)
-                    -- &nbsp; •
-                    span.label.bg-yellow -- Fork
-        div.mb-2.ml-0
-            if(input.Card_Details.has_build_zig === 1)
-                span.label.theme-bg-gray.ml-0
-                    -- build.zig&nbsp;
-                    check_mark
-            if(input.Card_Details.has_build_zig_zon === 1)
-                span.theme-bg-gray.label
-                    -- build.zig.zon&nbsp;
-                    check_mark
+                    -- &nbsp;
+        div.flex
+            if(input.Card_Details.has_build_zig)
+                span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300"
+                    -- build.zig.zon
+            if(input.Card_Details.has_build_zig_zon)
+                span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300"
+                    -- build.zig
             if(input.Card_Details.fork)
-                span..theme-bg-gray.label
-                    -- Fork&nbsp;
-                    check_mark
-        div
-            a.white href=(
-                "/" + input.section + "/" + input.Card_Details.full_name
-            )
-                if(input.section === "packages")
-                    button.bg-nice.bottom_button.theme-bg -- View Package
-                else
-                    button.bg-nice.bottom_button.theme-bg -- View Program
-
-style {
-    .miniprofileHolder {
-        margin-top: 10px;
-        margin-right: 5px;
-    }
-    .bg-gray {
-        background-color: gray !important;
-    }
-    .bottom_button {
-        margin-top: 5px;
-        border: 2px solid gray !important;
-    }
-    .gh_show {
-        margin: 5px 0 0 0;
-    }
-    .gray {
-        width: fit-content !important;
-        margin-right: 9px;
-        margin-top: 20px;
-        text-align: center;
-        padding: 5px 10px 5px 10px;
-        border-radius: 5px;
-    }
-    .mb-2 {
-        margin-bottom: 7px;
-    }
-    .ml-0 {
-        margin-left:0;
-    }
-}
+                span class="me-2 flex w-min items-center justify-center space-x-3 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-900 dark:text-gray-300"
+                    -- fork
+        if(input.section === "packages")
+            a [
+                href=("/packages/" + input.Card_Details.full_name)
+                type="button"
+                class="group relative flex items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none :ring-cyan-700 border border-gray-200 bg-white text-gray-900 focus:text-cyan-700 focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white rounded-full"
+            ]
+                span.flex.items-stretch.transition-all.duration-200.rounded-md.px-4.py-2.text-sm
+                    -- View package
+        if(input.section === "programs")
+            a [
+                href=("/programs/" + input.Card_Details.full_name)
+                type="button"
+                class="group relative flex items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none :ring-cyan-700 border border-gray-200 bg-white text-gray-900 focus:text-cyan-700 focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white rounded-full"
+            ]
+                span.flex.items-stretch.transition-all.duration-200.rounded-md.px-4.py-2.text-sm
+                    -- View program
+        if(input.section === "special-package")
+            a [
+                href=("https://github.com/" + input.Card_Details.full_name)
+                target="_blank"
+                type="button"
+                class="group relative flex items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none :ring-cyan-700 border border-gray-200 bg-white text-gray-900 focus:text-cyan-700 focus:ring-4 enabled:hover:bg-gray-100 enabled:hover:text-cyan-700 dark:border-gray-600 dark:bg-transparent dark:text-gray-400 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-white rounded-full"
+            ]
+                span.flex.items-stretch.transition-all.duration-200.rounded-md.px-4.py-2.text-sm
+                    -- View package on GitHub
+        

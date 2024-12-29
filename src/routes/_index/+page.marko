@@ -10,7 +10,11 @@ class {
     showSearchResults: boolean;
   };
   onCreate() {
-    this.state = {searchDdosQuery: "", searchResults:[],showSearchResults:false };
+    this.state = {
+      searchDdosQuery: "",
+      searchResults: [],
+      showSearchResults: false,
+    };
   }
   onSearch() {
     const ele = document.getElementById("search_box") as HTMLInputElement;
@@ -26,14 +30,15 @@ class {
         this.state.showSearchResults = true;
       });
   }
-  onKeyUp(event:KeyboardEvent) {
-    if(event.key === "Enter") {
+  onKeyUp(event: KeyboardEvent) {
+    if (event.key === "Enter") {
       this.onSearch();
     }
     const ele = document.getElementById("search_box") as HTMLInputElement;
     const value = ele.value;
-    if(value === "") {
+    if (value === "") {
       this.state.showSearchResults = false;
+      this.state.searchDdosQuery = "";
     }
   }
 }
@@ -53,52 +58,90 @@ static const $sortedRepos: Repo[] = (
 );
 static const $top10LatestRepos: Repo[] = $sortedRepos.slice(0, 10);
 
-div.container
-  main
-    div.hero
-      div.inside_special.theme-bg
-        h2.text-center
-          -- Search 
-          span -- Zig&nbsp;
-          -- Packages
-        div.flex.two.center
-          input.theme-bg-gray-for-input-bar.grid.search-bar#search_box on-keyup("onKeyUp") [
-            type="text"
-            placeholder="Search packages"
-          ]
+div
+  div.flex.flex-col.items-center
+    div class="rounded-lg sm:m-5 sm:p-5 sm:shadow-lg sm:shadow-black"
+      h1.my-5.text-center.text-2xl.font-semibold -- Search Ziglang Packages
+      div.flex
+        div.w-fit data-testid="flowbite-tooltip-target"
+          div.flex.ml-4
+            div class="relative max-w-36 w-max min-w-10"
+              select#dropDownID class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 border-yellow-500 bg-yellow-50 text-yellow-900 placeholder-yellow-700 focus:border-yellow-500 focus:ring-yellow-500 dark:border-yellow-400 dark:bg-yellow-100 dark:focus:border-yellow-500 dark:focus:ring-yellow-500 p-2.5 text-sm rounded-lg"
+                option -- No Filter
+                option -- api
+                option -- http
+                option -- rest
+                option -- gamedev
+                option -- gui
+                option -- cross-platform
 
-          button.search_button on-click("onSearch") -- Search
-  
+        div [
+          data-testid="flowbite-tooltip"
+          tabindex="-1"
+          class="absolute z-10 inline-block rounded-lg px-3 py-2 text-sm font-medium shadow-sm transition-opacity duration-300 invisible opacity-0 bg-gray-900 text-white dark:bg-gray-700"
+          style="position: absolute; top: 126px; left: 599.35px;"
+          id=":r0Rp:"
+          role="tooltip"
+        ]
+          div.relative.z-20 -- Search by filtering GitHub topics
+          div [
+            class="absolute z-10 h-2 w-2 rotate-45 bg-gray-900 dark:bg-gray-700"
+            data-testid="flowbite-tooltip-arrow"
+            style="bottom: -4px; left: 115.5px;"
+          ]
+            -- &nbsp;
+        div.flex.mx-4.mb-5.w-60.max-w-72
+          div.relative.w-full
+            input#SearchBox [
+              class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
+              type="text"
+              placeholder="Search 500+ Zig libraries"
+              autofocus
+            ]
+
 if(!state.showSearchResults)
-    div
-      h3.ml-4.special_display.theme-bg-gray-for-special -- Recently released:
-      div.mx-2
-        for|Card_Details| of=$top10LatestRepos
-          custom_card Card_Details=Card_Details section="packages"
-      h3.ml-4.special_display.theme-bg-gray-for-special -- Most used:
-      div.mx-2
-        for|Card_Details| of=$mostUsed
-          custom_card Card_Details=Card_Details section="packages"
-      h3.ml-4.special_display.theme-bg-gray-for-special -- Famous Game libraries:
-      div.mx-2
-        for|Card_Details| of=$Game_libs
-          custom_card Card_Details=Card_Details section="packages"
-      h3.ml-4.special_display.theme-bg-gray-for-special -- Famous GUI libraries:
-      div.mx-2
-        for|Card_Details| of=$GUI_libs
-          custom_card Card_Details=Card_Details section="packages"
-      h3.ml-4.special_display.theme-bg-gray-for-special -- Famous Web libraries:
-      div.mx-2
-        for|Card_Details| of=$Web_libs
-          custom_card Card_Details=Card_Details section="packages"
-      h3.ml-4.special_display.theme-bg-gray-for-special -- More Zig libraries:
+  div
+    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
+      play_icon
+      -- &nbsp;Recently released:
+    section class="flex w-full flex-wrap justify-evenly"
+      for|Card_Details| of=$top10LatestRepos
+        custom_card Card_Details=Card_Details section="packages"
+    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
+      most_used_icon
+      -- &nbsp;Most used:
+    section class="flex w-full flex-wrap justify-evenly"
+      for|Card_Details| of=$mostUsed
+        custom_card Card_Details=Card_Details section="packages"
+    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
+      game_icon
+      -- &nbsp;Famous Game libs:
+    section class="flex w-full flex-wrap justify-evenly"
+      for|Card_Details| of=$Game_libs
+        custom_card Card_Details=Card_Details section="packages"
+    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
+      gui_icon
+      -- &nbsp;Famous GUI libs:
+    section class="flex w-full flex-wrap justify-evenly"
+      for|Card_Details| of=$GUI_libs
+        custom_card Card_Details=Card_Details section="packages"
+    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
+      internet_icon
+      -- &nbsp;Famous Web libs:
+    section class="flex w-full flex-wrap justify-evenly"
+      for|Card_Details| of=$Web_libs
+        custom_card Card_Details=Card_Details section="packages"
+    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
+      internet_icon
+      -- &nbsp;View More:
+    section class="flex w-full flex-wrap justify-evenly"
       infinite_scroll section="packages"
 else
   div
-      h3.ml-4.special_display.theme-bg-gray-for-special -- Search Results:
-      div.mx-2
-        for|Card_Details| of=state.searchResults
-          custom_card Card_Details=Card_Details section="packages"
+    h3.ml-4.special_display.theme-bg-gray-for-special -- Search Results:
+    section class="flex w-full flex-wrap justify-evenly"
+      for|Card_Details| of=state.searchResults
+        custom_card Card_Details=Card_Details section="packages"
 
 style {
   .hero {
@@ -129,7 +172,7 @@ style {
     width: fit-content !important;
     margin: 0;
     background-color: #fdf6b2;
-    color:black;
+    color: black;
     border-radius: 0 5px 5px 0px;
   }
   .content_fit {
@@ -184,5 +227,11 @@ style {
     width: 500px;
     margin-top: 90px;
     margin-bottom: 40px;
+  }
+  select {
+    appearance: none; /* For most modern browsers */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
+    background-image: none; /* Remove native dropdown arrow */
   }
 }
