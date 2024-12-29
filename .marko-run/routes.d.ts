@@ -13,13 +13,13 @@ declare module "@marko/run" {
 	interface AppData extends Run.DefineApp<{
 		routes: {
 			"/": Routes["/_index"];
+			"/API-docs": Routes["/API-docs"];
 			"/about": Routes["/about"];
 			"/api/indexDetailsPrograms": Routes["/api/indexDetailsPrograms"];
 			"/api/infiniteScrollPackages": Routes["/api/infiniteScrollPackages"];
 			"/api/infiniteScrollPrograms": Routes["/api/infiniteScrollPrograms"];
 			"/api/searchPackages": Routes["/api/searchPackages"];
 			"/api/searchPrograms": Routes["/api/searchPrograms"];
-			"/api-docs": Routes["/api-docs"];
 			"/apps": Routes["/apps"];
 			"/apps/Zon-2-json": Routes["/apps/Zon-2-json"];
 			"/help": Routes["/help"];
@@ -97,10 +97,10 @@ declare module "../src/routes/_index/+page.marko" {
   }
 }
 
-declare module "../src/routes/about/+page.marko" {
+declare module "../src/routes/API-docs/+page.marko" {
   namespace MarkoRun {
     export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
-    export type Route = Run.Routes["/about"];
+    export type Route = Run.Routes["/API-docs"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
     /** @deprecated use `((context, next) => { ... }) satisfies MarkoRun.Handler` instead */
@@ -108,10 +108,10 @@ declare module "../src/routes/about/+page.marko" {
   }
 }
 
-declare module "../src/routes/api-docs/+page.marko" {
+declare module "../src/routes/about/+page.marko" {
   namespace MarkoRun {
     export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
-    export type Route = Run.Routes["/api-docs"];
+    export type Route = Run.Routes["/about"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
     /** @deprecated use `((context, next) => { ... }) satisfies MarkoRun.Handler` instead */
@@ -202,7 +202,7 @@ declare module "../src/routes/+layout.marko" {
   }
   namespace MarkoRun {
     export { NotHandled, NotMatched, GetPaths, PostPaths, GetablePath, GetableHref, PostablePath, PostableHref, Platform };
-    export type Route = Run.Routes["/" | "/about" | "/api-docs" | "/apps" | "/apps/Zon-2-json" | "/help" | "/packages/:user_name/:repo_name" | "/programs" | "/programs/:user_name/:repo_name" | "/statistics"];
+    export type Route = Run.Routes["/" | "/API-docs" | "/about" | "/apps" | "/apps/Zon-2-json" | "/help" | "/packages/:user_name/:repo_name" | "/programs" | "/programs/:user_name/:repo_name" | "/statistics"];
     export type Context = Run.MultiRouteContext<Route> & Marko.Global;
     export type Handler = Run.HandlerLike<Route>;
     /** @deprecated use `((context, next) => { ... }) satisfies MarkoRun.Handler` instead */
@@ -212,13 +212,13 @@ declare module "../src/routes/+layout.marko" {
 
 type Routes = {
 	"/_index": { verb: "get"; meta: typeof import("../src/routes/_index/+meta.json"); };
+	"/API-docs": { verb: "get"; };
 	"/about": { verb: "get"; };
 	"/api/indexDetailsPrograms": { verb: "get"; };
 	"/api/infiniteScrollPackages": { verb: "get"; };
 	"/api/infiniteScrollPrograms": { verb: "get"; };
 	"/api/searchPackages": { verb: "get"; };
 	"/api/searchPrograms": { verb: "get"; };
-	"/api-docs": { verb: "get"; };
 	"/apps": { verb: "get"; };
 	"/apps/Zon-2-json": { verb: "get"; };
 	"/help": { verb: "get"; };

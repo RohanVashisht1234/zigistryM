@@ -65,7 +65,7 @@ div
       div.flex
         div.w-fit data-testid="flowbite-tooltip-target"
           div.flex.ml-4
-            div class="relative max-w-36 w-max min-w-10"
+            div.relative.max-w-36.w-max.min-w-10
               select#dropDownID class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 border-yellow-500 bg-yellow-50 text-yellow-900 placeholder-yellow-700 focus:border-yellow-500 focus:ring-yellow-500 dark:border-yellow-400 dark:bg-yellow-100 dark:focus:border-yellow-500 dark:focus:ring-yellow-500 p-2.5 text-sm rounded-lg"
                 option -- No Filter
                 option -- api
@@ -92,11 +92,12 @@ div
             -- &nbsp;
         div.flex.mx-4.mb-5.w-60.max-w-72
           div.relative.w-full
-            input#SearchBox [
+            input#search_box [
               class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
               type="text"
               placeholder="Search 500+ Zig libraries"
               autofocus
+              on-keyup("onKeyUp")
             ]
 
 if(!state.showSearchResults)
@@ -104,130 +105,51 @@ if(!state.showSearchResults)
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       play_icon
       -- &nbsp;Recently released:
-    section class="flex w-full flex-wrap justify-evenly"
+    section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$top10LatestRepos
         custom_card Card_Details=Card_Details section="packages"
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       most_used_icon
       -- &nbsp;Most used:
-    section class="flex w-full flex-wrap justify-evenly"
+    section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$mostUsed
         custom_card Card_Details=Card_Details section="packages"
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       game_icon
       -- &nbsp;Famous Game libs:
-    section class="flex w-full flex-wrap justify-evenly"
+    section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$Game_libs
         custom_card Card_Details=Card_Details section="packages"
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       gui_icon
       -- &nbsp;Famous GUI libs:
-    section class="flex w-full flex-wrap justify-evenly"
+    section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$GUI_libs
         custom_card Card_Details=Card_Details section="packages"
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       internet_icon
       -- &nbsp;Famous Web libs:
-    section class="flex w-full flex-wrap justify-evenly"
+    section.flex.w-full.flex-wrap.justify-evenly
       for|Card_Details| of=$Web_libs
         custom_card Card_Details=Card_Details section="packages"
     h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
       internet_icon
       -- &nbsp;View More:
-    section class="flex w-full flex-wrap justify-evenly"
+    section.flex.w-full.flex-wrap.justify-evenly
       infinite_scroll section="packages"
 else
   div
-    h3.ml-4.special_display.theme-bg-gray-for-special -- Search Results:
-    section class="flex w-full flex-wrap justify-evenly"
-      for|Card_Details| of=state.searchResults
-        custom_card Card_Details=Card_Details section="packages"
+    h1.my-5.ml-10.flex.w-fit.items-center.rounded.border-2.border-slate-400.p-4.text-left.text-2xl.font-semibold.shadow-lg.shadow-black
+      internet_icon
+      -- &nbsp;Search Results:
+    section.flex.w-full.flex-wrap.justify-evenly
+      if(state.searchResults.length !== 0)
+        for|Card_Details| of=state.searchResults
+          custom_card Card_Details=Card_Details section="packages"
+      else
+        h1.text-4xl -- Can't find what you are looking for.
 
 style {
-  .hero {
-    width: 100vw;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .middler {
-    display: flex;
-    align-items: center;
-  }
-  .white {
-    color: white;
-  }
-  .search-bar {
-    width: 300px;
-    margin: 0;
-    font-size: 20px;
-    border-radius: 5px 0px 0px 5px;
-    border: 0;
-  }
-  .search-bar:focus {
-    border: 2px solid rgb(6 182 212);
-  }
-  .search_button {
-    width: fit-content !important;
-    margin: 0;
-    background-color: #fdf6b2;
-    color: black;
-    border-radius: 0 5px 5px 0px;
-  }
-  .content_fit {
-    display: block;
-    width: 50vw;
-  }
-  .text-center {
-    text-align: center;
-  }
-  .cardCustom {
-    padding: 10px 30px 25px 30px;
-    margin: 25px;
-    box-shadow: 0px 0px 20px black;
-    border-radius: 20px;
-  }
-  .cardCustom:hover {
-    scale: 1.01;
-  }
-  .ml-4 {
-    margin-left: 30px;
-  }
-  .mx-2 {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  .special_display {
-    border: 3px solid gray;
-    padding: 10px 15px 10px 15px;
-    width: fit-content;
-    box-shadow: 0px 0px 20px black;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    border-radius: 5px;
-  }
-  .miniprofile {
-    border-radius: 50%;
-    margin: 0 5px 0 0 !important;
-  }
-  .bg-nice {
-    padding: 10px 20px 10px 20px !important;
-    border: 2px solid rgb(77, 77, 77);
-    border-radius: 20px;
-  }
-  .mt-2 {
-    margin-top: 4px;
-  }
-  .inside_special {
-    box-shadow: 0px 0px 20px black;
-    padding-bottom: 50px;
-    padding-top: 20px;
-    border-radius: 40px;
-    width: 500px;
-    margin-top: 90px;
-    margin-bottom: 40px;
-  }
   select {
     appearance: none; /* For most modern browsers */
     -webkit-appearance: none; /* For Safari */
