@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-cvNzWU2SG0V3ZBeekcjl6eL/FyTRxff8VUmDOr5csUc=' 'sha256-mLODSjzG7uLboMl/dytfV3u2UcvIovGoH7Wy+P6DAK8=' https://buttons.github.io; img-src 'self' https://avatars.githubusercontent.com; object-src 'none';
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-lrnimsmNM/Br1cTW2Ks7h7lGN95UpsvJ0R6dEwHi978=' 'sha256-mLODSjzG7uLboMl/dytfV3u2UcvIovGoH7Wy+P6DAK8=' https://buttons.github.io; img-src 'self' https://avatars.githubusercontent.com; object-src 'none';
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
