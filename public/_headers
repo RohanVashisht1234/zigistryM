@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' cdn.jsdelivr.net; img-src 'self' avatars.githubusercontent.com; object-src 'none'; preload;
+  Content-Security-Policy: default-src 'self'; script-src 'self' cdn.jsdelivr.net zigistrym.pages.dev; img-src 'self' avatars.githubusercontent.com; object-src 'none'; preload;
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
