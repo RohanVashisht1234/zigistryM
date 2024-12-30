@@ -16,6 +16,31 @@ class {
       showSearchResults: false,
     };
   }
+  onMount() {
+    const my_element = document.getElementById(
+      "dropDownID",
+    ) as HTMLSelectElement;
+    const my_element2 = document.getElementById(
+      "search_box",
+    ) as HTMLInputElement;
+    my_element.addEventListener("change", (event) => {
+      const selectedValue = my_element.value;
+      if (selectedValue === "No Filter") {
+        this.state.showSearchResults = false;
+        return;
+      }
+      fetch(
+        `/api/searchPackages?q=${my_element2.value}&filter=${selectedValue}`,
+      )
+        .then((x) => {
+          return x.json();
+        })
+        .then((y: Repo[]) => {
+          this.state.searchResults = y;
+          this.state.showSearchResults = true;
+        });
+    });
+  }
   onSearch() {
     const ele = document.getElementById("search_box") as HTMLInputElement;
     const value = ele.value;
